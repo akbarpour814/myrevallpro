@@ -1,0 +1,70 @@
+name: revallpro
+description: A new Flutter project.
+
+publish_to: 'none'
+version: 1.0.1+3
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons:
+  firebase_core:
+  firebase_database: 
+  firebase_auth: 
+  flutter_secure_storage:
+  top_snackbar_flutter:
+  flutter_bloc:
+  get_it:
+  injectable: 
+  multi_trigger_autocomplete:
+  flutter_svg:
+  numberpicker:
+  flutter_local_notifications: 
+  rxdart:
+  flutter_timezone:
+  excel:
+  flutter_file_saver:
+  firebase_messaging: 
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons:
+  flutter_gen_runner:
+  build_runner: 
+  injectable_generator:
+
+flutter_gen:
+  integrations:
+    flutter_svg: true
+  
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/resource/logo.png"
+  remove_alpha_ios: true
+  flutter_lints: ^2.0.0
+  
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/resource/
+
+  fonts:
+    - family: sf-pro-medium
+      fonts:
+        - asset: assets/fonts/SF-Pro-Display-Medium.ttf
+    - family: sf-pro-regular
+      fonts:
+        - asset: assets/fonts/sf-pro-text-regular.ttf
+    - family: sf-pro-light
+      fonts:
+        - asset: assets/fonts/sf-pro-text-light.ttf
+    - family: iran-sans
+      fonts:
+        - asset: assets/fonts/iran-sans.ttf
+        

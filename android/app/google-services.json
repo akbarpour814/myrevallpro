@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "879121493549",
+    "firebase_url": "https://revallpro-default-rtdb.firebaseio.com",
+    "project_id": "revallpro",
+    "storage_bucket": "revallpro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879121493549:android:8d2ea8f249d78d33bd52a4",
+        "android_client_info": {
+          "package_name": "com.revallpro.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879121493549-ilehbdib9e8jdkpvkiktdt25o4pehfr9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoglerD0OPs4zozfnuoRtlTHvqzDYtT3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879121493549-ilehbdib9e8jdkpvkiktdt25o4pehfr9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "879121493549-v6uev7arlu8k028i2aj2ljo5mjts2n9u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.revallpro.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
