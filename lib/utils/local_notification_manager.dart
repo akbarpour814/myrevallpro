@@ -132,7 +132,8 @@ class LocalNotificationManager {
     required String payload,
   }) async {
     NotificationDetails _platformChannel = NotificationDetails(
-        android: AndroidNotificationDetails("com.revallpro.app", 'RevAll Pro',
+        android: AndroidNotificationDetails(
+            "com.loonieple.loonieple", 'RevAll Pro',
             channelDescription: 'RevAll Pro notification',
             importance: Importance.max,
             priority: Priority.high,
@@ -174,7 +175,7 @@ class LocalNotificationManager {
                 dataList.length == 1 ? 0 : Random().nextInt(dataList.length);
             NotificationDetails _platformChannel = NotificationDetails(
                 android: AndroidNotificationDetails(
-                    "com.revallpro.app", 'RevAll Pro',
+                    "com.loonieple.loonieple", 'RevAll Pro',
                     channelDescription: 'RevAll Pro notification',
                     importance: Importance.max,
                     priority: Priority.high,
@@ -225,7 +226,8 @@ class LocalNotificationManager {
     try {
       int lastNotifId = await UserInfos.getInt('lastNotifId') ?? 0;
       NotificationDetails _platformChannel = NotificationDetails(
-          android: AndroidNotificationDetails("com.revallpro.app", 'RevAll Pro',
+          android: AndroidNotificationDetails(
+              "com.loonieple.loonieple", 'RevAll Pro',
               channelDescription: 'RevAll Pro notification',
               importance: Importance.max,
               priority: Priority.high,
