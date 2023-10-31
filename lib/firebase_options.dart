@@ -67,6 +67,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'revallpro.appspot.com',
     iosClientId:
         '879121493549-v6uev7arlu8k028i2aj2ljo5mjts2n9u.apps.googleusercontent.com',
-    iosBundleId: 'com.loonieple.loonieple',
+    iosBundleId: 'com.revallpro.app',
   );
 }

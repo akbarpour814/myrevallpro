@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:879121493549:android:8d2ea8f249d78d33bd52a4",
         "android_client_info": {
-          "package_name": "com.loonieple.loonieple"
+          "package_name": "com.revallpro.app"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "879121493549-v6uev7arlu8k028i2aj2ljo5mjts2n9u.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.loonieple.loonieple"
+                "bundle_id": "com.revallpro.app"
               }
             }
           ]

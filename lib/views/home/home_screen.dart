@@ -13,7 +13,6 @@ import 'package:revallpro/views/home/tag_list_tab/tag_list_tab.dart';
 import 'package:revallpro/views/home/text_list_tab/bloc/text_list_bloc.dart';
 import 'package:revallpro/views/home/text_list_tab/text_list_tab.dart';
 import 'package:revallpro/views/settings/setting_screen.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class HomeScreen extends StatefulWidget {
@@ -69,26 +68,62 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         appBar: AppBar(
           title: InkWell(
             onTap: () async {
-              NotificationDetails _platformChannel = NotificationDetails(
-                  android: AndroidNotificationDetails(
-                      "com.loonieple.loonieple", 'RevAll Pro',
-                      channelDescription: 'RevAll Pro notification',
-                      importance: Importance.max,
-                      priority: Priority.high,
-                      playSound: true,
-                      category: AndroidNotificationCategory.alarm,
-                      styleInformation: BigTextStyleInformation('test'),
-                      largeIcon: DrawableResourceAndroidBitmap(
-                          'mipmap/launcher_icon')),
-                  iOS: DarwinNotificationDetails());
-              var time = tz.TZDateTime.now(tz.local).add(Duration(minutes: 40));
-              await localNotificationManager.flutterLocalNotificationsPlugin
-                  .zonedSchedule(
-                      0, 'RevAll Pro', 'test', time, _platformChannel,
-                      uiLocalNotificationDateInterpretation:
-                          UILocalNotificationDateInterpretation.absoluteTime,
-                      androidScheduleMode: AndroidScheduleMode.alarmClock,
-                      payload: 'random#');
+              TextEditingController textEditingController =
+                  TextEditingController();
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        controller: textEditingController,
+                        decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                                onPressed: () async {
+                                  NotificationDetails _platformChannel =
+                                      NotificationDetails(
+                                          android: AndroidNotificationDetails(
+                                              "com.revallpro.app", 'RevAll Pro',
+                                              channelDescription:
+                                                  'RevAll Pro notification',
+                                              importance: Importance.max,
+                                              priority: Priority.high,
+                                              playSound: true,
+                                              category:
+                                                  AndroidNotificationCategory
+                                                      .alarm,
+                                              styleInformation:
+                                                  BigTextStyleInformation(
+                                                      DateTime.now()
+                                                          .toIso8601String()),
+                                              largeIcon:
+                                                  DrawableResourceAndroidBitmap(
+                                                      'mipmap/launcher_icon')),
+                                          iOS: DarwinNotificationDetails());
+                                  var time = tz.TZDateTime.now(tz.local).add(
+                                      Duration(
+                                          minutes: int.parse(
+                                              textEditingController.text)));
+                                  await localNotificationManager
+                                      .flutterLocalNotificationsPlugin
+                                      .zonedSchedule(0, 'RevAll Pro', 'test',
+                                          time, _platformChannel,
+                                          uiLocalNotificationDateInterpretation:
+                                              UILocalNotificationDateInterpretation
+                                                  .absoluteTime,
+                                          androidScheduleMode:
+                                              AndroidScheduleMode.alarmClock,
+                                          payload: 'random#');
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(Icons.done))),
+                      )
+                    ],
+                  );
+                },
+              );
               // localNotificationManager.getAll();
               // var ss = await UserInfos.getInt('lastNotifId');
               // log(ss.toString());

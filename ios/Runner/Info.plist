@@ -55,7 +55,7 @@
 		<true />
 		<key>BGTaskSchedulerPermittedIdentifiers</key>
 		<array>
-			<string>com.loonieple.loonieple</string>
+			<string>com.revallpro.app</string>
 		</array>
 		<key>UIBackgroundModes</key>
 		<array>
