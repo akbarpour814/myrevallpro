@@ -85,7 +85,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   NotificationDetails _platformChannel =
                                       NotificationDetails(
                                           android: AndroidNotificationDetails(
-                                              "com.revallpro.app", 'RevAll Pro',
+                                              "com.loonieple.loonieple",
+                                              'RevAll Pro',
                                               channelDescription:
                                                   'RevAll Pro notification',
                                               importance: Importance.max,
