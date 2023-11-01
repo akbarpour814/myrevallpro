@@ -169,7 +169,7 @@ flutter:
   fonts:
     - family: 'gothom'
       fonts:
-        - asset: assets/fonts/2vqf7_
+        - asset: assets/fonts/GothamBold.ttf
           weight: 700
     - family: 'logo'
       fonts:

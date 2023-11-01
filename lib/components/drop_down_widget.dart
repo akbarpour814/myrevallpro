@@ -72,7 +72,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
       ),
       fillColor: Color(0x00FFFFFF),
       elevation: 2.0,
-      borderColor: widget.borderColor,
+      borderColor: widget.borderColor!,
       borderWidth: 2.0,
       borderRadius: 5.0,
       margin: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
