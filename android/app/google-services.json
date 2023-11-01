@@ -1,38 +1,45 @@
 {
   "project_info": {
-    "project_number": "879121493549",
-    "firebase_url": "https://revallpro-default-rtdb.firebaseio.com",
-    "project_id": "revallpro",
-    "storage_bucket": "revallpro.appspot.com"
+    "project_number": "527884613740",
+    "project_id": "taskerpage-2",
+    "storage_bucket": "taskerpage-2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:879121493549:android:8d2ea8f249d78d33bd52a4",
+        "mobilesdk_app_id": "1:527884613740:android:6e550ab6c4a3324aa10049",
         "android_client_info": {
           "package_name": "com.loonieple.loonieple"
         }
       },
       "oauth_client": [
         {
-          "client_id": "879121493549-ilehbdib9e8jdkpvkiktdt25o4pehfr9.apps.googleusercontent.com",
+          "client_id": "527884613740-h1hcc8dlvirtilfgchkhpdk4rd1afm3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.loonieple.loonieple",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "527884613740-s1pvve1o8v0e7erjg9c94t42g75ka461.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCoglerD0OPs4zozfnuoRtlTHvqzDYtT3w"
+          "current_key": "AIzaSyDwVp7h1uFnc_P0AZt8hfqC3mXN9ljCT80"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "879121493549-ilehbdib9e8jdkpvkiktdt25o4pehfr9.apps.googleusercontent.com",
+              "client_id": "527884613740-s1pvve1o8v0e7erjg9c94t42g75ka461.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "879121493549-v6uev7arlu8k028i2aj2ljo5mjts2n9u.apps.googleusercontent.com",
+              "client_id": "527884613740-8i6226k284l0gomjhcb220lnjh4vtm4v.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.loonieple.loonieple"
