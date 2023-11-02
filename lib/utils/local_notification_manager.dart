@@ -163,8 +163,8 @@ class LocalNotificationManager {
         }
         int lastNotifId = await UserInfos.getInt('lastNotifId') ?? 0;
         int randomCount = await UserInfos.getRandomNotificationCount();
-        //برای 30 روز آینده
-        for (var i = 0; i < 30; i++) {
+        //برای (Platform.isIOS ? 10 : 30) روز آینده
+        for (var i = 0; i < (Platform.isIOS ? 10 : 30); i++) {
           //زمانی که در حین ایجاد نوتیف های رندوم از جای دیگه درخواست کنسل همه ی نوتیف ها بیاد
           if (_forceCanceled) {
             cancelAll();

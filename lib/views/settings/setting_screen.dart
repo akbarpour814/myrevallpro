@@ -231,7 +231,7 @@ With notifications, our app will remind you when it's time to review, making sur
                                 IconButton(
                                   icon: Icon(Icons.add),
                                   onPressed:
-                                      _currentRandomCount < 8 && _randomSwitch
+                                      _currentRandomCount < 5 && _randomSwitch
                                           ? () => setState(() {
                                                 _currentRandomCount++;
                                               })
