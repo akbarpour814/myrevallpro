@@ -20,6 +20,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'personal_details_model.dart';
 export 'personal_details_model.dart';
 
@@ -56,12 +57,16 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
 
     _model.companyNameController ??= TextEditingController();
     _model.companyNameFocusNode ??= FocusNode();
+
     _model.firstNameController ??= TextEditingController();
     _model.firstNameFocusNode ??= FocusNode();
+
     _model.lastNameController ??= TextEditingController();
     _model.lastNameFocusNode ??= FocusNode();
+
     _model.textController4 ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -97,14 +102,15 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -112,27 +118,27 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  wrapWithModel(
+                    model: _model.headerModel,
+                    updateCallback: () => setState(() {}),
+                    child: HeaderWidget(
+                      openDrawer: () async {
+                        scaffoldKey.currentState!.openEndDrawer();
+                      },
+                    ),
+                  ),
+                ],
+              ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          wrapWithModel(
-                            model: _model.headerModel,
-                            updateCallback: () => setState(() {}),
-                            child: HeaderWidget(
-                              openDrawer: () async {
-                                scaffoldKey.currentState!.openEndDrawer();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
@@ -969,7 +975,7 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                                 FlutterFlowDropDown<String>(
                                   controller: _model.dropDownValueController ??=
                                       FormFieldController<String>(null),
-                                  options: ['+98', '+49', '+91'],
+                                  options: ['+49', '+91'],
                                   onChanged: (val) async {
                                     setState(() => _model.dropDownValue = val);
                                     setState(() {

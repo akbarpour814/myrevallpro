@@ -2,7 +2,9 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/bargain/chat_message/chat_message_widget.dart';
 import '/components/chat_message_actions_widget.dart';
-import '/components/notification_component_widget.dart';
+import '/components/header_web_widget.dart';
+import '/components/side_bar_left_profile_widget.dart';
+import '/components/side_bar_right_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -13,13 +15,13 @@ import '/flutter_flow/request_manager.dart';
 
 import 'chat_widget.dart' show ChatWidget;
 import 'dart:async';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class ChatModel extends FlutterFlowModel<ChatWidget> {
   ///  Local state fields for this page.
@@ -49,6 +51,10 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   ApiCallResponse? apiResult39c;
   bool apiRequestCompleted = false;
   String? apiRequestLastUniqueKey;
+  // Model for Header_web component.
+  late HeaderWebModel headerWebModel;
+  // Model for sideBar_left_profile component.
+  late SideBarLeftProfileModel sideBarLeftProfileModel;
   // Models for ChatMessage dynamic component.
   late FlutterFlowDynamicModels<ChatMessageModel> chatMessageModels;
   // Model for chatMessageActions component.
@@ -59,6 +65,8 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   String? Function(BuildContext, String?)? textControllerValidator;
   // Stores action output result for [Backend Call - API (send message)] action in Icon widget.
   ApiCallResponse? apiResult55u;
+  // Model for sideBar_Right component.
+  late SideBarRightModel sideBarRightModel;
 
   /// Query cache managers for this widget.
 
@@ -80,17 +88,25 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    headerWebModel = createModel(context, () => HeaderWebModel());
+    sideBarLeftProfileModel =
+        createModel(context, () => SideBarLeftProfileModel());
     chatMessageModels = FlutterFlowDynamicModels(() => ChatMessageModel());
     chatMessageActionsModel =
         createModel(context, () => ChatMessageActionsModel());
+    sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    headerWebModel.dispose();
+    sideBarLeftProfileModel.dispose();
     chatMessageModels.dispose();
     chatMessageActionsModel.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
+
+    sideBarRightModel.dispose();
 
     /// Dispose query cache managers for this widget.
 

@@ -67,11 +67,11 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
         if (!snapshot.hasData) {
           return Center(
             child: SizedBox(
-              width: 50.0,
-              height: 50.0,
+              width: 35.0,
+              height: 35.0,
               child: SpinKitThreeBounce(
                 color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+                size: 35.0,
               ),
             ),
           );
@@ -214,67 +214,65 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                               ],
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(9.0, 0.0, 9.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  FlutterFlowTimer(
-                                                    initialTime: _model
-                                                        .timerMilliseconds,
-                                                    getDisplayTime: (value) =>
-                                                        StopWatchTimer
-                                                            .getDisplayTime(
-                                                                value,
-                                                                milliSecond:
-                                                                    false),
-                                                    controller:
-                                                        _model.timerController,
-                                                    updateStateInterval:
-                                                        Duration(
-                                                            milliseconds: 1000),
-                                                    onChanged: (value,
-                                                        displayTime,
-                                                        shouldUpdate) {
-                                                      _model.timerMilliseconds =
-                                                          value;
-                                                      _model.timerValue =
-                                                          displayTime;
-                                                      if (shouldUpdate)
-                                                        setState(() {});
-                                                    },
-                                                    textAlign: TextAlign.start,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          fontSize: 13.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                  LinearPercentIndicator(
-                                                    percent: 0.5,
-                                                    lineHeight: 2.5,
-                                                    animation: true,
-                                                    animateFromLastPercent:
-                                                        true,
-                                                    progressColor:
-                                                        Color(0xFF28A853),
-                                                    backgroundColor:
-                                                        Color(0xFFF2F2F2),
-                                                    barRadius:
-                                                        Radius.circular(18.0),
-                                                    padding: EdgeInsets.zero,
-                                                  ),
-                                                ].divide(SizedBox(height: 5.0)),
-                                              ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    9.0, 0.0, 9.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                FlutterFlowTimer(
+                                                  initialTime:
+                                                      _model.timerMilliseconds,
+                                                  getDisplayTime: (value) =>
+                                                      StopWatchTimer
+                                                          .getDisplayTime(value,
+                                                              milliSecond:
+                                                                  false),
+                                                  controller:
+                                                      _model.timerController,
+                                                  updateStateInterval: Duration(
+                                                      milliseconds: 1000),
+                                                  onChanged: (value,
+                                                      displayTime,
+                                                      shouldUpdate) {
+                                                    _model.timerMilliseconds =
+                                                        value;
+                                                    _model.timerValue =
+                                                        displayTime;
+                                                    if (shouldUpdate)
+                                                      setState(() {});
+                                                  },
+                                                  textAlign: TextAlign.start,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .headlineSmall
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                                LinearPercentIndicator(
+                                                  percent: 0.5,
+                                                  width: 100.0,
+                                                  lineHeight: 2.5,
+                                                  animation: true,
+                                                  animateFromLastPercent: true,
+                                                  progressColor:
+                                                      Color(0xFF28A853),
+                                                  backgroundColor:
+                                                      Color(0xFFF2F2F2),
+                                                  barRadius:
+                                                      Radius.circular(18.0),
+                                                  padding: EdgeInsets.zero,
+                                                ),
+                                              ].divide(SizedBox(height: 5.0)),
                                             ),
                                           ),
                                           Container(

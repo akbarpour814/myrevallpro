@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'add_another_model.dart';
 export 'add_another_model.dart';
 
@@ -34,20 +35,26 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
     _model.textController1 ??=
         TextEditingController(text: _model.placePickerValue.address);
     _model.textFieldFocusNode1 ??= FocusNode();
+
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+
     _model.textController3 ??=
         TextEditingController(text: _model.placePickerValue.zipCode);
     _model.textFieldFocusNode3 ??= FocusNode();
+
     _model.textController4 ??=
         TextEditingController(text: _model.placePickerValue.city);
     _model.textFieldFocusNode4 ??= FocusNode();
+
     _model.textController5 ??=
         TextEditingController(text: _model.placePickerValue.state);
     _model.textFieldFocusNode5 ??= FocusNode();
+
     _model.textController6 ??=
         TextEditingController(text: _model.placePickerValue.country);
     _model.textFieldFocusNode6 ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -80,7 +87,8 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: Container(
               width: 100.0,
@@ -94,7 +102,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                 child: DrawerContentWidget(),
               ),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,

@@ -19,6 +19,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class EmailVerificationPageDeprecatedModel
     extends FlutterFlowModel<EmailVerificationPageDeprecatedWidget> {

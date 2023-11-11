@@ -17,6 +17,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'add_another_education_model.dart';
 export 'add_another_education_model.dart';
 
@@ -97,6 +98,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
               ).toString().toString()
             : '');
     _model.textFieldFocusNode1 ??= FocusNode();
+
     _model.textController2 ??= TextEditingController(
         text: widget.education != null
             ? getJsonField(
@@ -105,6 +107,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
               ).toString().toString()
             : '');
     _model.textFieldFocusNode2 ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -140,14 +143,15 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -798,7 +802,8 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       enableDrag: false,
                                       context: context,
                                       builder: (context) {
-                                        return GestureDetector(
+                                        return WebViewAware(
+                                            child: GestureDetector(
                                           onTap: () => _model
                                                   .unfocusNode.canRequestFocus
                                               ? FocusScope.of(context)
@@ -819,7 +824,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                               },
                                             ),
                                           ),
-                                        );
+                                        ));
                                       },
                                     ).then((value) => safeSetState(() {}));
                                   } else {
@@ -1493,7 +1498,8 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         await showDialog(
                                           context: context,
                                           builder: (alertDialogContext) {
-                                            return AlertDialog(
+                                            return WebViewAware(
+                                                child: AlertDialog(
                                               title: Text('Not Done'),
                                               content: Text('Not Done'),
                                               actions: [
@@ -1504,7 +1510,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                   child: Text('Ok'),
                                                 ),
                                               ],
-                                            );
+                                            ));
                                           },
                                         );
                                       }
@@ -1611,7 +1617,8 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       await showDialog(
                                         context: context,
                                         builder: (alertDialogContext) {
-                                          return AlertDialog(
+                                          return WebViewAware(
+                                              child: AlertDialog(
                                             title: Text('Not Done'),
                                             content: Text('Not Done'),
                                             actions: [
@@ -1621,7 +1628,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                 child: Text('Ok'),
                                               ),
                                             ],
-                                          );
+                                          ));
                                         },
                                       );
                                     }

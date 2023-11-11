@@ -1,8 +1,10 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/chat_message_actions_widget.dart';
+import '/components/appointment_card_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'chat_message_widget.dart' show ChatMessageWidget;
 import 'package:flutter/material.dart';
@@ -16,23 +18,17 @@ import 'package:provider/provider.dart';
 class ChatMessageModel extends FlutterFlowModel<ChatMessageWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // Model for chatMessageActions component.
-  late ChatMessageActionsModel chatMessageActionsModel1;
-  // Model for chatMessageActions component.
-  late ChatMessageActionsModel chatMessageActionsModel2;
+  // Model for appointment_card component.
+  late AppointmentCardModel appointmentCardModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    chatMessageActionsModel1 =
-        createModel(context, () => ChatMessageActionsModel());
-    chatMessageActionsModel2 =
-        createModel(context, () => ChatMessageActionsModel());
+    appointmentCardModel = createModel(context, () => AppointmentCardModel());
   }
 
   void dispose() {
-    chatMessageActionsModel1.dispose();
-    chatMessageActionsModel2.dispose();
+    appointmentCardModel.dispose();
   }
 
   /// Action blocks are added here.

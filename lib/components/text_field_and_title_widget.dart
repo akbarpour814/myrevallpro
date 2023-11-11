@@ -39,6 +39,7 @@ class _TextFieldAndTitleWidgetState extends State<TextFieldAndTitleWidget> {
 
     _model.stateController ??= TextEditingController(text: widget.defaultValue);
     _model.stateFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

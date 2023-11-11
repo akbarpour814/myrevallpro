@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'sign_in_information_model.dart';
 export 'sign_in_information_model.dart';
 
@@ -34,10 +35,13 @@ class _SignInInformationWidgetState extends State<SignInInformationWidget> {
 
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
+
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+
     _model.textController3 ??= TextEditingController();
     _model.textFieldFocusNode3 ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -70,7 +74,8 @@ class _SignInInformationWidgetState extends State<SignInInformationWidget> {
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: Container(
               width: 100.0,
@@ -84,7 +89,7 @@ class _SignInInformationWidgetState extends State<SignInInformationWidget> {
                 child: DrawerContentWidget(),
               ),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,

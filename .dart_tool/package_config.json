@@ -15,7 +15,7 @@
     },
     {
       "name": "archive",
-      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/archive-3.4.6",
+      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/archive-3.4.9",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -350,6 +350,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "flutter_lints",
+      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/flutter_lints-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "flutter_localizations",
       "rootUri": "file:///C:/src/flutter/packages/flutter_localizations",
       "packageUri": "lib/",
@@ -608,6 +614,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "lints",
+      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/lints-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "logging",
       "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/logging-1.2.0",
       "packageUri": "lib/",
@@ -777,7 +789,7 @@
     },
     {
       "name": "pointer_interceptor",
-      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/pointer_interceptor-0.9.3+6",
+      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/pointer_interceptor-0.9.3+7",
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
@@ -819,7 +831,7 @@
     },
     {
       "name": "share_plus",
-      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/share_plus-6.3.1",
+      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/share_plus-6.3.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -909,7 +921,7 @@
     },
     {
       "name": "sqflite_common",
-      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/sqflite_common-2.5.0",
+      "rootUri": "file:///C:/Users/keyva/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/sqflite_common-2.5.0+1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -1142,7 +1154,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-11-01T18:15:30.783299Z",
+  "generated": "2023-11-11T10:05:11.775275Z",
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }

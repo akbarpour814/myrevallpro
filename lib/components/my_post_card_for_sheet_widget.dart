@@ -11,6 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'my_post_card_for_sheet_model.dart';
 export 'my_post_card_for_sheet_model.dart';
 
@@ -498,7 +499,8 @@ class _MyPostCardForSheetWidgetState extends State<MyPostCardForSheetWidget> {
                   enableDrag: false,
                   context: context,
                   builder: (context) {
-                    return Padding(
+                    return WebViewAware(
+                        child: Padding(
                       padding: MediaQuery.viewInsetsOf(context),
                       child: StartChatOnTaskerWidget(
                         post: getJsonField(
@@ -510,7 +512,7 @@ class _MyPostCardForSheetWidgetState extends State<MyPostCardForSheetWidget> {
                           Navigator.pop(context);
                         },
                       ),
-                    );
+                    ));
                   },
                 ).then((value) => safeSetState(() {}));
               },

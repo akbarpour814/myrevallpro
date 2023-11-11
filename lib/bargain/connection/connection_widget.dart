@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/emty_list_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'connection_model.dart';
 export 'connection_model.dart';
 
@@ -63,14 +65,15 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -176,14 +179,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                         if (!snapshot.hasData) {
                                                           return Center(
                                                             child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
+                                                              width: 35.0,
+                                                              height: 35.0,
                                                               child:
                                                                   SpinKitThreeBounce(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primary,
-                                                                size: 50.0,
+                                                                size: 35.0,
                                                               ),
                                                             ),
                                                           );
@@ -193,8 +196,16 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                         return Text(
                                                           functions
                                                               .numberofListitems(
-                                                                  textConnectionListResponse
-                                                                      .jsonBody)
+                                                                  (getJsonField(
+                                                                textConnectionListResponse
+                                                                    .jsonBody,
+                                                                r'''$.data''',
+                                                                true,
+                                                              ) as List)
+                                                                      .map<String>(
+                                                                          (s) =>
+                                                                              s.toString())
+                                                                      .toList())
                                                               .toString(),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -276,13 +287,13 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
+                                              width: 35.0,
+                                              height: 35.0,
                                               child: SpinKitThreeBounce(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                size: 50.0,
+                                                size: 35.0,
                                               ),
                                             ),
                                           );
@@ -296,6 +307,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                   .jsonBody,
                                               r'''$.data''',
                                             ).toList().take(3).toList();
+                                            if (invation.isEmpty) {
+                                              return EmtyListWidget(
+                                                iconShow: true,
+                                                text:
+                                                    'You do not have an invitation',
+                                                goTO: () async {},
+                                              );
+                                            }
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               primary: false,
@@ -330,14 +349,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                       if (!snapshot.hasData) {
                                                         return Center(
                                                           child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
+                                                            width: 35.0,
+                                                            height: 35.0,
                                                             child:
                                                                 SpinKitThreeBounce(
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .primary,
-                                                              size: 50.0,
+                                                              size: 35.0,
                                                             ),
                                                           ),
                                                         );
@@ -669,6 +688,7 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                             ),
                                                           ),
                                                           Divider(
+                                                            height: 0.0,
                                                             thickness: 1.0,
                                                             color: Color(
                                                                 0xFFD2D2D2),
@@ -761,14 +781,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                         if (!snapshot.hasData) {
                                                           return Center(
                                                             child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
+                                                              width: 35.0,
+                                                              height: 35.0,
                                                               child:
                                                                   SpinKitThreeBounce(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primary,
-                                                                size: 50.0,
+                                                                size: 35.0,
                                                               ),
                                                             ),
                                                           );
@@ -860,13 +880,13 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
+                                              width: 35.0,
+                                              height: 35.0,
                                               child: SpinKitThreeBounce(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                size: 50.0,
+                                                size: 35.0,
                                               ),
                                             ),
                                           );
@@ -879,6 +899,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                               listViewGetUserResponse.jsonBody,
                                               r'''$.data.following''',
                                             ).toList().take(3).toList();
+                                            if (connections.isEmpty) {
+                                              return EmtyListWidget(
+                                                iconShow: true,
+                                                text:
+                                                    'You do not have an connections',
+                                                goTO: () async {},
+                                              );
+                                            }
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               primary: false,
@@ -915,14 +943,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                       if (!snapshot.hasData) {
                                                         return Center(
                                                           child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
+                                                            width: 35.0,
+                                                            height: 35.0,
                                                             child:
                                                                 SpinKitThreeBounce(
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .primary,
-                                                              size: 50.0,
+                                                              size: 35.0,
                                                             ),
                                                           ),
                                                         );
@@ -1150,6 +1178,7 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                             ),
                                                           ),
                                                           Divider(
+                                                            height: 0.0,
                                                             thickness: 1.0,
                                                             color: Color(
                                                                 0xFFD2D2D2),
@@ -1242,14 +1271,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                         if (!snapshot.hasData) {
                                                           return Center(
                                                             child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
+                                                              width: 35.0,
+                                                              height: 35.0,
                                                               child:
                                                                   SpinKitThreeBounce(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primary,
-                                                                size: 50.0,
+                                                                size: 35.0,
                                                               ),
                                                             ),
                                                           );
@@ -1341,13 +1370,13 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
+                                              width: 35.0,
+                                              height: 35.0,
                                               child: SpinKitThreeBounce(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                size: 50.0,
+                                                size: 35.0,
                                               ),
                                             ),
                                           );
@@ -1360,6 +1389,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                               listViewGetUserResponse.jsonBody,
                                               r'''$.data.followers''',
                                             ).toList().take(3).toList();
+                                            if (followers.isEmpty) {
+                                              return EmtyListWidget(
+                                                iconShow: true,
+                                                text:
+                                                    'You do not have follower',
+                                                goTO: () async {},
+                                              );
+                                            }
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               primary: false,
@@ -1395,14 +1432,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                       if (!snapshot.hasData) {
                                                         return Center(
                                                           child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
+                                                            width: 35.0,
+                                                            height: 35.0,
                                                             child:
                                                                 SpinKitThreeBounce(
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .primary,
-                                                              size: 50.0,
+                                                              size: 35.0,
                                                             ),
                                                           ),
                                                         );
@@ -1633,6 +1670,7 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                             ),
                                                           ),
                                                           Divider(
+                                                            height: 0.0,
                                                             thickness: 1.0,
                                                             color: Color(
                                                                 0xFFD2D2D2),

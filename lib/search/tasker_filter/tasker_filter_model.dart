@@ -22,8 +22,6 @@ import 'package:provider/provider.dart';
 class TaskerFilterModel extends FlutterFlowModel<TaskerFilterWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // Stores action output result for [Backend Call - API (Customer Profile Skills List)] action in Text widget.
-  ApiCallResponse? customerProfileName;
   // State field(s) for Expandable widget.
   late ExpandableController expandableController1;
 
@@ -61,6 +59,8 @@ class TaskerFilterModel extends FlutterFlowModel<TaskerFilterWidget> {
   bool? switchValue5;
   // State field(s) for RadioButton widget.
   FormFieldController<String>? radioButtonValueController3;
+  // Stores action output result for [Backend Call - API (Customer Profile Skills List)] action in Container widget.
+  ApiCallResponse? customerProfileNameCopy;
 
   /// Initialization and disposal methods.
 

@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'chat_list_model.dart';
 export 'chat_list_model.dart';
 
@@ -107,14 +108,15 @@ class _ChatListWidgetState extends State<ChatListWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: Column(
           mainAxisSize: MainAxisSize.max,
@@ -133,7 +135,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                 ),
               ],
             ),
-            if (false)
+            if (widget.task! > 0)
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(27.0, 32.0, 0.0, 20.0),
                 child: FutureBuilder<ApiCallResponse>(
@@ -150,11 +152,11 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                     if (!snapshot.hasData) {
                       return Center(
                         child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
+                          width: 35.0,
+                          height: 35.0,
                           child: SpinKitThreeBounce(
                             color: FlutterFlowTheme.of(context).primary,
-                            size: 50.0,
+                            size: 35.0,
                           ),
                         ),
                       );
@@ -223,13 +225,13 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                       if (!snapshot.hasData) {
                                         return Center(
                                           child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
+                                            width: 35.0,
+                                            height: 35.0,
                                             child: SpinKitThreeBounce(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
-                                              size: 50.0,
+                                              size: 35.0,
                                             ),
                                           ),
                                         );
@@ -342,25 +344,19 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                   },
                 ),
               ),
+            if (widget.task! > 0)
+              Divider(
+                height: 0.0,
+                thickness: 1.0,
+                color: FlutterFlowTheme.of(context).secondary,
+              ),
             Expanded(
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 4.0,
-                      color: Color(0x33000000),
-                      spreadRadius: 4.0,
-                    )
-                  ],
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(0.0),
-                    bottomRight: Radius.circular(0.0),
-                    topLeft: Radius.circular(15.0),
-                    topRight: Radius.circular(15.0),
-                  ),
+                  borderRadius: BorderRadius.circular(0.0),
                 ),
                 child: Padding(
                   padding:
@@ -409,12 +405,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
+                                        width: 35.0,
+                                        height: 35.0,
                                         child: SpinKitThreeBounce(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          size: 50.0,
+                                          size: 35.0,
                                         ),
                                       ),
                                     );
@@ -508,12 +504,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
+                                      width: 35.0,
+                                      height: 35.0,
                                       child: SpinKitThreeBounce(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
-                                        size: 50.0,
+                                        size: 35.0,
                                       ),
                                     ),
                                   );
@@ -559,14 +555,14 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                   if (!snapshot.hasData) {
                                                     return Center(
                                                       child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
+                                                        width: 35.0,
+                                                        height: 35.0,
                                                         child:
                                                             SpinKitThreeBounce(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
-                                                          size: 50.0,
+                                                          size: 35.0,
                                                         ),
                                                       ),
                                                     );
@@ -619,9 +615,10 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'Chats related ',
+                              widget.task != null ? 'Chats related' : 'Chats',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -655,12 +652,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                     if (!snapshot.hasData) {
                                       return Center(
                                         child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
+                                          width: 35.0,
+                                          height: 35.0,
                                           child: SpinKitThreeBounce(
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
-                                            size: 50.0,
+                                            size: 35.0,
                                           ),
                                         ),
                                       );
@@ -747,12 +744,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
+                                    width: 35.0,
+                                    height: 35.0,
                                     child: SpinKitThreeBounce(
                                       color:
                                           FlutterFlowTheme.of(context).primary,
-                                      size: 50.0,
+                                      size: 35.0,
                                     ),
                                   ),
                                 );

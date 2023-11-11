@@ -89,11 +89,11 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
           if (!snapshot.hasData) {
             return Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 35.0,
+                height: 35.0,
                 child: SpinKitThreeBounce(
                   color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+                  size: 35.0,
                 ),
               ),
             );

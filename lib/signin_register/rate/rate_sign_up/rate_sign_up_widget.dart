@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'rate_sign_up_model.dart';
 export 'rate_sign_up_model.dart';
 
@@ -86,6 +87,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
     _model.textController ??=
         TextEditingController(text: _model.userRate?.amount?.toString());
     _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -118,14 +120,15 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -185,7 +188,8 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                   enableDrag: false,
                                   context: context,
                                   builder: (context) {
-                                    return GestureDetector(
+                                    return WebViewAware(
+                                        child: GestureDetector(
                                       onTap: () => _model
                                               .unfocusNode.canRequestFocus
                                           ? FocusScope.of(context)
@@ -198,7 +202,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                           userRate: _model.userRate!,
                                         ),
                                       ),
-                                    );
+                                    ));
                                   },
                                 ).then((value) => safeSetState(
                                     () => _model.updatedUserRate = value));

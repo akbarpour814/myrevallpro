@@ -19,6 +19,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class AddAnotherEducationModel
     extends FlutterFlowModel<AddAnotherEducationWidget> {
@@ -106,7 +107,8 @@ class AddAnotherEducationModel
       await showDialog(
         context: context,
         builder: (alertDialogContext) {
-          return AlertDialog(
+          return WebViewAware(
+              child: AlertDialog(
             title: Text('Not Done'),
             content: Text('Not Done'),
             actions: [
@@ -115,7 +117,7 @@ class AddAnotherEducationModel
                 child: Text('Ok'),
               ),
             ],
-          );
+          ));
         },
       );
     }

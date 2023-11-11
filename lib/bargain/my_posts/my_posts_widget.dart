@@ -1,10 +1,13 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/ad_card_web_widget.dart';
+import '/components/badges_header_widget.dart';
+import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/my_post_card_widget.dart';
 import '/components/nav_bar_widget.dart';
-import '/components/navigate_back_widget.dart';
-import '/components/sort_task_list_widget.dart';
+import '/components/side_bar_left_profile_widget.dart';
+import '/components/side_bar_right_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -13,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'my_posts_model.dart';
 export 'my_posts_model.dart';
 
@@ -62,17 +66,18 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -87,7 +92,15 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
               ))
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  children: [],
+                  children: [
+                    Expanded(
+                      child: wrapWithModel(
+                        model: _model.headerWebModel,
+                        updateCallback: () => setState(() {}),
+                        child: HeaderWebWidget(),
+                      ),
+                    ),
+                  ],
                 ),
               Expanded(
                 child: Row(
@@ -101,7 +114,15 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                     ))
                       Column(
                         mainAxisSize: MainAxisSize.max,
-                        children: [],
+                        children: [
+                          Expanded(
+                            child: wrapWithModel(
+                              model: _model.sideBarLeftProfileModel,
+                              updateCallback: () => setState(() {}),
+                              child: SideBarLeftProfileWidget(),
+                            ),
+                          ),
+                        ],
                       ),
                     Expanded(
                       child: Column(
@@ -111,41 +132,95 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: Color(0x00FFFFFF),
                               ),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  wrapWithModel(
-                                    model: _model.headerModel,
-                                    updateCallback: () => setState(() {}),
-                                    child: HeaderWidget(
-                                      openDrawer: () async {
-                                        scaffoldKey.currentState!
-                                            .openEndDrawer();
-                                      },
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 8.0, 0.0, 0.0),
-                                          child: wrapWithModel(
-                                            model: _model.navigateBackModel,
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            child: NavigateBackWidget(
-                                              text: 'My Posts',
+                                  if (responsiveVisibility(
+                                    context: context,
+                                    phone: false,
+                                    tablet: false,
+                                    tabletLandscape: false,
+                                  ))
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          32.0, 0.0, 32.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: wrapWithModel(
+                                              model: _model.badgesHeaderModel,
+                                              updateCallback: () =>
+                                                  setState(() {}),
+                                              child: BadgesHeaderWidget(),
                                             ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
+                                  if (responsiveVisibility(
+                                    context: context,
+                                    desktop: false,
+                                  ))
+                                    wrapWithModel(
+                                      model: _model.headerModel,
+                                      updateCallback: () => setState(() {}),
+                                      child: HeaderWidget(
+                                        openDrawer: () async {
+                                          scaffoldKey.currentState!
+                                              .openEndDrawer();
+                                        },
+                                      ),
+                                    ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 32.0, 32.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          'My task',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Color(0xFF222222),
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                'All',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                              Icon(
+                                                Icons.filter_list,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 24.0,
+                                              ),
+                                            ].divide(SizedBox(width: 11.0)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   Expanded(
                                     child: Padding(
@@ -157,136 +232,8 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                           children: [
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 0.0, 5.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                8.0, 0.0),
-                                                    child: InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        await showModalBottomSheet(
-                                                          isScrollControlled:
-                                                              true,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          enableDrag: false,
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return GestureDetector(
-                                                              onTap: () => _model
-                                                                      .unfocusNode
-                                                                      .canRequestFocus
-                                                                  ? FocusScope.of(
-                                                                          context)
-                                                                      .requestFocus(
-                                                                          _model
-                                                                              .unfocusNode)
-                                                                  : FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
-                                                              child: Padding(
-                                                                padding: MediaQuery
-                                                                    .viewInsetsOf(
-                                                                        context),
-                                                                child:
-                                                                    SortTaskListWidget(),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ).then((value) =>
-                                                            safeSetState(
-                                                                () {}));
-                                                      },
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
-                                                        child: Image.asset(
-                                                          'assets/images/icons8-sort-30.png',
-                                                          width: 25.0,
-                                                          height: 25.0,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        enableDrag: false,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
-                                                            child: Padding(
-                                                              padding: MediaQuery
-                                                                  .viewInsetsOf(
-                                                                      context),
-                                                              child:
-                                                                  SortTaskListWidget(),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          safeSetState(() {}));
-                                                    },
-                                                    child: Text(
-                                                      FFAppState().Sort,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF5450E2),
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      0.0, 24.0, 0.0, 20.0),
+                                                      0.0, 15.0, 0.0, 20.0),
                                               child: FutureBuilder<
                                                   ApiCallResponse>(
                                                 future: TaskerpageBackendGroup
@@ -307,14 +254,14 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                                   if (!snapshot.hasData) {
                                                     return Center(
                                                       child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
+                                                        width: 35.0,
+                                                        height: 35.0,
                                                         child:
                                                             SpinKitThreeBounce(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
-                                                          size: 50.0,
+                                                          size: 35.0,
                                                         ),
                                                       ),
                                                     );
@@ -340,7 +287,7 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                                             myPosts.length,
                                                         separatorBuilder:
                                                             (_, __) => SizedBox(
-                                                                height: 16.0),
+                                                                height: 10.0),
                                                         itemBuilder: (context,
                                                             myPostsIndex) {
                                                           final myPostsItem =
@@ -369,6 +316,18 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                                 },
                                               ),
                                             ),
+                                            if (responsiveVisibility(
+                                              context: context,
+                                              phone: false,
+                                              tablet: false,
+                                              tabletLandscape: false,
+                                            ))
+                                              wrapWithModel(
+                                                model: _model.adCardWebModel,
+                                                updateCallback: () =>
+                                                    setState(() {}),
+                                                child: AdCardWebWidget(),
+                                              ),
                                           ],
                                         ),
                                       ),
@@ -377,11 +336,15 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      wrapWithModel(
-                                        model: _model.navBarModel,
-                                        updateCallback: () => setState(() {}),
-                                        child: NavBarWidget(),
-                                      ),
+                                      if (responsiveVisibility(
+                                        context: context,
+                                        desktop: false,
+                                      ))
+                                        wrapWithModel(
+                                          model: _model.navBarModel,
+                                          updateCallback: () => setState(() {}),
+                                          child: NavBarWidget(),
+                                        ),
                                     ],
                                   ),
                                 ],
@@ -397,9 +360,17 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                       tablet: false,
                       tabletLandscape: false,
                     ))
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [],
+                      SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            wrapWithModel(
+                              model: _model.sideBarRightModel,
+                              updateCallback: () => setState(() {}),
+                              child: SideBarRightWidget(),
+                            ),
+                          ],
+                        ),
                       ),
                   ],
                 ),

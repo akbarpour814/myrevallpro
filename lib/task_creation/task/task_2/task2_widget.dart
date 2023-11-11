@@ -21,6 +21,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'task2_model.dart';
 export 'task2_model.dart';
 
@@ -115,6 +116,7 @@ class _Task2WidgetState extends State<Task2Widget> {
     _model.textController ??= TextEditingController(
         text: FFAppState().createTask.taskDeatels.description);
     _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -147,7 +149,8 @@ class _Task2WidgetState extends State<Task2Widget> {
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.6,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.navigationBarModel,
@@ -163,18 +166,19 @@ class _Task2WidgetState extends State<Task2Widget> {
                 },
               ),
             ),
-          ),
+          )),
         ),
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -293,12 +297,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
+                                        width: 35.0,
+                                        height: 35.0,
                                         child: SpinKitThreeBounce(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          size: 50.0,
+                                          size: 35.0,
                                         ),
                                       ),
                                     );
@@ -648,7 +652,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 10.0, 32.0, 0.0),
+                                        32.0, 10.0, 32.0, 8.0),
                                     child: Builder(
                                       builder: (context) {
                                         final skillOptions = getJsonField(
@@ -769,7 +773,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                           ],
                         ),
                       Divider(
-                        height: 48.0,
+                        height: 20.0,
                         thickness: 1.0,
                         indent: 32.0,
                         endIndent: 32.0,
@@ -845,7 +849,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                         ],
                       ),
                       Divider(
-                        height: 48.0,
+                        height: 20.0,
                         thickness: 1.0,
                         indent: 32.0,
                         endIndent: 32.0,
@@ -964,7 +968,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                         ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 0.0, 32.0, 10.0),
+                            32.0, 8.0, 32.0, 10.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -1166,7 +1170,8 @@ class _Task2WidgetState extends State<Task2Widget> {
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
-                                      return AlertDialog(
+                                      return WebViewAware(
+                                          child: AlertDialog(
                                         title: Text('Not Done'),
                                         content: Text('Not Done'),
                                         actions: [
@@ -1176,7 +1181,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                             child: Text('Ok'),
                                           ),
                                         ],
-                                      );
+                                      ));
                                     },
                                   );
                                 }

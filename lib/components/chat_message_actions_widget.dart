@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'chat_message_actions_model.dart';
 export 'chat_message_actions_model.dart';
 
@@ -83,13 +84,14 @@ class _ChatMessageActionsWidgetState extends State<ChatMessageActionsWidget> {
                     enableDrag: false,
                     context: context,
                     builder: (context) {
-                      return Padding(
+                      return WebViewAware(
+                          child: Padding(
                         padding: MediaQuery.viewInsetsOf(context),
                         child: ChatActionBottomSheetWidget(
                           action: possibleTransitionsItem.action,
                           chatRoom: widget.chatRoom!,
                         ),
-                      );
+                      ));
                     },
                   ).then((value) =>
                       safeSetState(() => _model.chatActionBottomSheet = value));

@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'task1_model.dart';
 export 'task1_model.dart';
 
@@ -99,7 +100,8 @@ class _Task1WidgetState extends State<Task1Widget> {
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.6,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.navigationBarModel,
@@ -115,18 +117,19 @@ class _Task1WidgetState extends State<Task1Widget> {
                 },
               ),
             ),
-          ),
+          )),
         ),
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -214,12 +217,12 @@ class _Task1WidgetState extends State<Task1Widget> {
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
+                                      width: 35.0,
+                                      height: 35.0,
                                       child: SpinKitThreeBounce(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
-                                        size: 50.0,
+                                        size: 35.0,
                                       ),
                                     ),
                                   );
@@ -428,7 +431,8 @@ class _Task1WidgetState extends State<Task1Widget> {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
-                                    return AlertDialog(
+                                    return WebViewAware(
+                                        child: AlertDialog(
                                       title: Text('Notice'),
                                       content:
                                           Text('you must choose one category'),
@@ -439,7 +443,7 @@ class _Task1WidgetState extends State<Task1Widget> {
                                           child: Text('Ok'),
                                         ),
                                       ],
-                                    );
+                                    ));
                                   },
                                 );
                               }

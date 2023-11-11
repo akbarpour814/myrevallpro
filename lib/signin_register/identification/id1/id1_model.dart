@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class Id1Model extends FlutterFlowModel<Id1Widget> {
   ///  Local state fields for this page.

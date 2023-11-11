@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'header_model.dart';
 export 'header_model.dart';
 
@@ -82,11 +83,12 @@ class _HeaderWidgetState extends State<HeaderWidget> {
             builder: (dialogContext) {
               return Material(
                 color: Colors.transparent,
-                child: Container(
+                child: WebViewAware(
+                    child: Container(
                   height: 200.0,
                   width: MediaQuery.sizeOf(context).width * 0.3,
                   child: NotificationComponentWidget(),
-                ),
+                )),
               );
             },
           ).then((value) => setState(() {}));

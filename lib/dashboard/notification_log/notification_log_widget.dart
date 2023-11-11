@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'notification_log_model.dart';
 export 'notification_log_model.dart';
 
@@ -64,14 +65,15 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -135,11 +137,11 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                             if (!snapshot.hasData) {
                               return Center(
                                 child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
+                                  width: 35.0,
+                                  height: 35.0,
                                   child: SpinKitThreeBounce(
                                     color: FlutterFlowTheme.of(context).primary,
-                                    size: 50.0,
+                                    size: 35.0,
                                   ),
                                 ),
                               );
@@ -153,6 +155,9 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                   r'''$.data''',
                                 ).toList();
                                 return RefreshIndicator(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).tertiary,
                                   onRefresh: () async {
                                     setState(() =>
                                         _model.apiRequestCompleter = null);

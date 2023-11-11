@@ -1,8 +1,14 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/drawer_content_widget.dart';
+import '/components/ad_card_web_widget.dart';
+import '/components/badges_header_widget.dart';
 import '/components/edit_email_or_pass_widget.dart';
+import '/components/edit_number_widget.dart';
+import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
-import '/components/navigate_back_widget.dart';
+import '/components/main_drawer_widget.dart';
+import '/components/nav_bar_widget.dart';
+import '/components/side_bar_left_profile_widget.dart';
+import '/components/side_bar_right_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,9 +21,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'contactdata3_model.dart';
 export 'contactdata3_model.dart';
 
@@ -70,10 +76,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().clearMyAddressesCacheKey(_model.apiRequestLastUniqueKey);
-        _model.apiRequestCompleted = false;
-      });
+      setState(() => _model.apiRequestCompleter = null);
       await _model.waitForApiRequestCompleted();
       while (FFAppState().NotificationForAnewPassOrEmail == true) {
         _model.instantTimer = InstantTimer.periodic(
@@ -82,7 +85,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
             setState(() {
               FFAppState().NotificationForAnewPassOrEmail = false;
             });
-            null?.cancel();
+            _model.instantTimer?.cancel();
           },
           startImmediately: true,
         );
@@ -134,11 +137,11 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
             backgroundColor: Color(0xFFF2F2F2),
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 35.0,
+                height: 35.0,
                 child: SpinKitThreeBounce(
                   color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+                  size: 35.0,
                 ),
               ),
             ),
@@ -152,763 +155,423 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Color(0xFFF2F2F2),
-            drawer: Container(
-              width: MediaQuery.sizeOf(context).width * 0.85,
-              child: Drawer(
+            endDrawer: Container(
+              width: double.infinity,
+              child: WebViewAware(
+                  child: Drawer(
                 elevation: 16.0,
-                child: Container(
-                  width: 100.0,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE8EAFF),
-                  ),
-                  child: wrapWithModel(
-                    model: _model.drawerContentModel,
-                    updateCallback: () => setState(() {}),
-                    child: DrawerContentWidget(),
-                  ),
+                child: wrapWithModel(
+                  model: _model.mainDrawerModel,
+                  updateCallback: () => setState(() {}),
+                  child: MainDrawerWidget(),
                 ),
-              ),
+              )),
             ),
             body: SafeArea(
               top: true,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Flexible(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
+                  if (responsiveVisibility(
+                    context: context,
+                    phone: false,
+                    tablet: false,
+                    tabletLandscape: false,
+                  ))
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: wrapWithModel(
+                            model: _model.headerWebModel,
+                            updateCallback: () => setState(() {}),
+                            child: HeaderWebWidget(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  Expanded(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        if (responsiveVisibility(
+                          context: context,
+                          phone: false,
+                          tablet: false,
+                          tabletLandscape: false,
+                        ))
+                          Column(
                             mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              wrapWithModel(
-                                model: _model.headerModel,
-                                updateCallback: () => setState(() {}),
-                                child: HeaderWidget(
-                                  openDrawer: () async {
-                                    scaffoldKey.currentState!.openEndDrawer();
-                                  },
+                              Expanded(
+                                child: wrapWithModel(
+                                  model: _model.sideBarLeftProfileModel,
+                                  updateCallback: () => setState(() {}),
+                                  child: SideBarLeftProfileWidget(),
                                 ),
                               ),
                             ],
                           ),
-                          Stack(
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
                             children: [
-                              if (FFAppState().NotificationForAnewPassOrEmail ==
-                                  true)
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 8.0, 0.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5.0, 0.0, 0.0, 0.0),
-                                        child: Container(
-                                          width: 210.0,
-                                          height: 37.0,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFF6F6F6),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                blurRadius: 4.0,
-                                                color: Color(0x33000000),
-                                                offset: Offset(0.0, 2.0),
-                                              )
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 0.0, 8.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  width: 22.0,
-                                                  height: 22.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFF00C661),
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                1.0, 0.0),
-                                                    child: Icon(
-                                                      Icons.done_rounded,
-                                                      color: Colors.white,
-                                                      size: 15.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 0.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    'Pleas check your E-mail address !',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          fontSize: 11.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                      .animateOnPageLoad(animationsMap[
-                                          'rowOnPageLoadAnimation']!)
-                                      .animateOnActionTrigger(
-                                        animationsMap[
-                                            'rowOnActionTriggerAnimation']!,
-                                      ),
-                                ),
-                            ],
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
-                              child: wrapWithModel(
-                                model: _model.navigateBackModel,
-                                updateCallback: () => setState(() {}),
-                                child: NavigateBackWidget(
-                                  text: 'Contact Data',
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 18.0, 32.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 4.0,
-                                          color: Color(0x33000000),
-                                          offset: Offset(0.0, 2.0),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(0.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20.5, 16.0, 20.5, 25.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Icon(
-                                                Icons.email_outlined,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 17.0,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        10.0, 0.0, 8.0, 0.0),
-                                                child: Text(
-                                                  'Email Address: ',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                ),
-                                              ),
-                                              Text(
-                                                getJsonField(
-                                                  contactdata3UserProfileReadResponse
-                                                      .jsonBody,
-                                                  r'''$.data.user''',
-                                                ).toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 16.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Icon(
-                                                  Icons.lock_outlined,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondary,
-                                                  size: 17.0,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          10.0, 0.0, 8.0, 0.0),
-                                                  child: Text(
-                                                    'Password:',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary,
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 8.0,
-                                                  height: 8.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .alternate,
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 0.0, 0.0, 0.0),
-                                                  child: Container(
-                                                    width: 8.0,
-                                                    height: 8.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 0.0, 0.0, 0.0),
-                                                  child: Container(
-                                                    width: 8.0,
-                                                    height: 8.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 0.0, 0.0, 0.0),
-                                                  child: Container(
-                                                    width: 8.0,
-                                                    height: 8.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 0.0, 0.0, 0.0),
-                                                  child: Container(
-                                                    width: 8.0,
-                                                    height: 8.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 0.0, 0.0, 0.0),
-                                                  child: Container(
-                                                    width: 8.0,
-                                                    height: 8.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 0.0, 0.0, 0.0),
-                                                  child: Container(
-                                                    width: 8.0,
-                                                    height: 8.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 0.0, 0.0, 0.0),
-                                                  child: Container(
-                                                    width: 8.0,
-                                                    height: 8.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  await showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    enableDrag: false,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
-                                                        child: Padding(
-                                                          padding: MediaQuery
-                                                              .viewInsetsOf(
-                                                                  context),
-                                                          child:
-                                                              EditEmailOrPassWidget(),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      safeSetState(() {}));
-                                                },
-                                                child: FaIcon(
-                                                  FontAwesomeIcons.solidEdit,
-                                                  color: Color(0xFF8A8A8A),
-                                                  size: 19.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                              Expanded(
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 100.0,
+                                  decoration: BoxDecoration(
+                                    color: Color(0x00FFFFFF),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 16.0, 32.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Row(
+                                  child: Column(
                                     mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                blurRadius: 4.0,
-                                                color: Color(0x33000000),
-                                                offset: Offset(0.0, 2.0),
-                                              )
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(0.0),
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20.5, 16.0, 20.5, 25.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 0.0, 16.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.phone_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        size: 17.0,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    10.0,
-                                                                    0.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: Text(
-                                                          'Mobile number:',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lato',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondary,
-                                                                fontSize: 14.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        getJsonField(
-                                                          contactdata3UserProfileReadResponse
-                                                              .jsonBody,
-                                                          r'''$.data.phone_number''',
-                                                        ).toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        context.pushNamed(
-                                                            'Contactdata-7');
-                                                      },
-                                                      child: FaIcon(
-                                                        FontAwesomeIcons
-                                                            .solidEdit,
-                                                        color:
-                                                            Color(0xFF8A8A8A),
-                                                        size: 19.0,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  if (responsiveVisibility(
+                                                    context: context,
+                                                    desktop: false,
+                                                  ))
+                                                    wrapWithModel(
+                                                      model: _model.headerModel,
+                                                      updateCallback: () =>
+                                                          setState(() {}),
+                                                      child: HeaderWidget(
+                                                        openDrawer: () async {
+                                                          scaffoldKey
+                                                              .currentState!
+                                                              .openEndDrawer();
+                                                        },
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 16.0, 32.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 4.0,
-                                          color: Color(0x33000000),
-                                          offset: Offset(0.0, 2.0),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(0.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20.5, 20.0, 20.5, 20.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          FutureBuilder<ApiCallResponse>(
-                                            future: FFAppState()
-                                                .myAddresses(
-                                              uniqueQueryKey: 'myAddresses',
-                                              requestFn: () =>
-                                                  TaskerpageBackendGroup
-                                                      .myAddressesCall
-                                                      .call(
-                                                apiGlobalKey:
-                                                    FFAppState().apiKey,
-                                                fields:
-                                                    '[\"is_main_address\",\"name\",\"address\"]',
-                                                filters:
-                                                    '[[\"customer_profile\",\"=\",\"${getJsonField(
-                                                  FFAppState().userProfile,
-                                                  r'''$.data.name''',
-                                                ).toString()}\"]]',
+                                                ],
                                               ),
-                                            )
-                                                .then((result) {
-                                              try {
-                                                _model.apiRequestCompleted =
-                                                    true;
-                                                _model.apiRequestLastUniqueKey =
-                                                    'myAddresses';
-                                              } finally {}
-                                              return result;
-                                            }),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child: SpinKitThreeBounce(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      size: 50.0,
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              final listViewMyAddressesResponse =
-                                                  snapshot.data!;
-                                              return Builder(
-                                                builder: (context) {
-                                                  final myAddress =
-                                                      getJsonField(
-                                                    listViewMyAddressesResponse
-                                                        .jsonBody,
-                                                    r'''$.data''',
-                                                  ).toList();
-                                                  return ListView.builder(
-                                                    padding: EdgeInsets.zero,
-                                                    primary: false,
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    itemCount: myAddress.length,
-                                                    itemBuilder: (context,
-                                                        myAddressIndex) {
-                                                      final myAddressItem =
-                                                          myAddress[
-                                                              myAddressIndex];
-                                                      return Column(
+                                              Stack(
+                                                children: [
+                                                  if (FFAppState()
+                                                          .NotificationForAnewPassOrEmail ==
+                                                      true)
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  8.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
                                                         children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .location_on,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondary,
-                                                                size: 17.0,
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Container(
+                                                              width: 210.0,
+                                                              height: 37.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Color(
+                                                                    0xFFF6F6F6),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    blurRadius:
+                                                                        4.0,
+                                                                    color: Color(
+                                                                        0x33000000),
+                                                                    offset:
+                                                                        Offset(
+                                                                            0.0,
+                                                                            2.0),
+                                                                  )
+                                                                ],
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0),
                                                               ),
-                                                              Flexible(
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          0.0,
-                                                                          8.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    getJsonField(
-                                                                      myAddressItem,
-                                                                      r'''$.address''',
-                                                                    ).toString(),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).alternate,
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Expanded(
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            8.0,
+                                                                            0.0,
+                                                                            8.0,
+                                                                            0.0),
                                                                 child: Row(
                                                                   mainAxisSize:
                                                                       MainAxisSize
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .end,
+                                                                          .start,
                                                                   children: [
                                                                     Container(
                                                                       width:
-                                                                          95.0,
+                                                                          22.0,
                                                                       height:
                                                                           22.0,
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         color: Color(
-                                                                            0xFFD4D4D4),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(2.0),
+                                                                            0xFF00C661),
+                                                                        shape: BoxShape
+                                                                            .circle,
                                                                       ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            1.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .done_rounded,
+                                                                          color:
+                                                                              Colors.white,
+                                                                          size:
+                                                                              15.0,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          8.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        'Pleas check your E-mail address !',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              fontSize: 11.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                          .animateOnPageLoad(
+                                                              animationsMap[
+                                                                  'rowOnPageLoadAnimation']!)
+                                                          .animateOnActionTrigger(
+                                                            animationsMap[
+                                                                'rowOnActionTriggerAnimation']!,
+                                                          ),
+                                                    ),
+                                                ],
+                                              ),
+                                              if (responsiveVisibility(
+                                                context: context,
+                                                phone: false,
+                                                tablet: false,
+                                                tabletLandscape: false,
+                                              ))
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child: wrapWithModel(
+                                                        model: _model
+                                                            .badgesHeaderModel,
+                                                        updateCallback: () =>
+                                                            setState(() {}),
+                                                        child:
+                                                            BadgesHeaderWidget(),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        32.0, 32.0, 32.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      'Contact data',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .alternate,
+                                                            fontSize: 16.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        5.0, 18.0, 5.0, 20.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 4.0,
+                                                              color: Color(
+                                                                  0x33000000),
+                                                              offset: Offset(
+                                                                  0.0, 0.0),
+                                                              spreadRadius: 2.0,
+                                                            )
+                                                          ],
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      16.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        32.0,
+                                                                        0.0,
+                                                                        32.0,
+                                                                        0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Email address:',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            color:
+                                                                                Color(0xFF222222),
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          6.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        getJsonField(
+                                                                          FFAppState()
+                                                                              .userProfile,
+                                                                          r'''$.data.user''',
+                                                                        ).toString(),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
                                                                       child:
                                                                           Row(
                                                                         mainAxisSize:
                                                                             MainAxisSize.max,
                                                                         mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
+                                                                            MainAxisAlignment.end,
                                                                         children: [
-                                                                          Text(
-                                                                            'Main Address',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Lato',
-                                                                                  color: FlutterFlowTheme.of(context).alternate,
-                                                                                  fontSize: 13.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                ),
+                                                                          InkWell(
+                                                                            splashColor:
+                                                                                Colors.transparent,
+                                                                            focusColor:
+                                                                                Colors.transparent,
+                                                                            hoverColor:
+                                                                                Colors.transparent,
+                                                                            highlightColor:
+                                                                                Colors.transparent,
+                                                                            onTap:
+                                                                                () async {
+                                                                              await showModalBottomSheet(
+                                                                                isScrollControlled: true,
+                                                                                backgroundColor: Colors.transparent,
+                                                                                enableDrag: false,
+                                                                                context: context,
+                                                                                builder: (context) {
+                                                                                  return WebViewAware(
+                                                                                      child: GestureDetector(
+                                                                                    onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
+                                                                                    child: Padding(
+                                                                                      padding: MediaQuery.viewInsetsOf(context),
+                                                                                      child: EditEmailOrPassWidget(),
+                                                                                    ),
+                                                                                  ));
+                                                                                },
+                                                                              ).then((value) => safeSetState(() {}));
+                                                                            },
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.edit,
+                                                                              color: Color(0xFF8A8A8A),
+                                                                              size: 20.0,
+                                                                            ),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -916,370 +579,833 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                                   ],
                                                                 ),
                                                               ),
+                                                              Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        32.0,
+                                                                        6.0,
+                                                                        32.0,
+                                                                        0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Password:',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            color:
+                                                                                Color(0xFF222222),
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          6.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        'xxxxxxxx',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Divider(
+                                                                height: 32.0,
+                                                                thickness: 1.0,
+                                                                color: Color(
+                                                                    0xFFDEDEDE),
+                                                              ),
+                                                              Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        32.0,
+                                                                        0.0,
+                                                                        32.0,
+                                                                        0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Mobile number:',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            color:
+                                                                                Color(0xFF222222),
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          6.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        getJsonField(
+                                                                          FFAppState()
+                                                                              .userProfile,
+                                                                          r'''$.data.phone_number''',
+                                                                        ).toString(),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.end,
+                                                                        children: [
+                                                                          InkWell(
+                                                                            splashColor:
+                                                                                Colors.transparent,
+                                                                            focusColor:
+                                                                                Colors.transparent,
+                                                                            hoverColor:
+                                                                                Colors.transparent,
+                                                                            highlightColor:
+                                                                                Colors.transparent,
+                                                                            onTap:
+                                                                                () async {
+                                                                              await showModalBottomSheet(
+                                                                                isScrollControlled: true,
+                                                                                backgroundColor: Colors.transparent,
+                                                                                enableDrag: false,
+                                                                                context: context,
+                                                                                builder: (context) {
+                                                                                  return WebViewAware(
+                                                                                      child: GestureDetector(
+                                                                                    onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
+                                                                                    child: Padding(
+                                                                                      padding: MediaQuery.viewInsetsOf(context),
+                                                                                      child: EditNumberWidget(),
+                                                                                    ),
+                                                                                  ));
+                                                                                },
+                                                                              ).then((value) => safeSetState(() {}));
+                                                                            },
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.edit,
+                                                                              color: Color(0xFF8A8A8A),
+                                                                              size: 20.0,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Divider(
+                                                                height: 32.0,
+                                                                thickness: 1.0,
+                                                                color: Color(
+                                                                    0xFFDEDEDE),
+                                                              ),
+                                                              Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        32.0,
+                                                                        0.0,
+                                                                        32.0,
+                                                                        0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Addresses',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).alternate,
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.end,
+                                                                        children: [
+                                                                          InkWell(
+                                                                            splashColor:
+                                                                                Colors.transparent,
+                                                                            focusColor:
+                                                                                Colors.transparent,
+                                                                            hoverColor:
+                                                                                Colors.transparent,
+                                                                            highlightColor:
+                                                                                Colors.transparent,
+                                                                            onTap:
+                                                                                () async {
+                                                                              context.pushNamed(
+                                                                                'Contactdata-2',
+                                                                                queryParameters: {
+                                                                                  'isSignUp': serializeParam(
+                                                                                    false,
+                                                                                    ParamType.bool,
+                                                                                  ),
+                                                                                }.withoutNulls,
+                                                                              );
+                                                                            },
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.edit,
+                                                                              color: Color(0xFF8A8A8A),
+                                                                              size: 20.0,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        32.0,
+                                                                        18.0,
+                                                                        32.0,
+                                                                        0.0),
+                                                                child: FutureBuilder<
+                                                                    ApiCallResponse>(
+                                                                  future: (_model.apiRequestCompleter ??= Completer<
+                                                                          ApiCallResponse>()
+                                                                        ..complete(TaskerpageBackendGroup
+                                                                            .myAddressesCall
+                                                                            .call(
+                                                                          fields:
+                                                                              '[\"name\",\"address\",\"is_main_address\"]',
+                                                                          filters:
+                                                                              '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                                            FFAppState().userProfile,
+                                                                            r'''$.data.name''',
+                                                                          ).toString()}\"]]',
+                                                                          orderBy:
+                                                                              'creation desc',
+                                                                          apiGlobalKey:
+                                                                              FFAppState().apiKey,
+                                                                        )))
+                                                                      .future,
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    // Customize what your widget looks like when it's loading.
+                                                                    if (!snapshot
+                                                                        .hasData) {
+                                                                      return Center(
+                                                                        child:
+                                                                            SizedBox(
+                                                                          width:
+                                                                              35.0,
+                                                                          height:
+                                                                              35.0,
+                                                                          child:
+                                                                              SpinKitThreeBounce(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            size:
+                                                                                35.0,
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                    final listViewMyAddressesResponse =
+                                                                        snapshot
+                                                                            .data!;
+                                                                    return Builder(
+                                                                      builder:
+                                                                          (context) {
+                                                                        final myAddress =
+                                                                            getJsonField(
+                                                                          listViewMyAddressesResponse
+                                                                              .jsonBody,
+                                                                          r'''$.data''',
+                                                                        ).toList().take(3).toList();
+                                                                        return ListView
+                                                                            .separated(
+                                                                          padding:
+                                                                              EdgeInsets.zero,
+                                                                          shrinkWrap:
+                                                                              true,
+                                                                          scrollDirection:
+                                                                              Axis.vertical,
+                                                                          itemCount:
+                                                                              myAddress.length,
+                                                                          separatorBuilder: (_, __) =>
+                                                                              SizedBox(height: 8.0),
+                                                                          itemBuilder:
+                                                                              (context, myAddressIndex) {
+                                                                            final myAddressItem =
+                                                                                myAddress[myAddressIndex];
+                                                                            return Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: Container(
+                                                                                    width: 100.0,
+                                                                                    height: 66.5,
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: Color(0xFFF2F2F2),
+                                                                                      borderRadius: BorderRadius.circular(1.0),
+                                                                                    ),
+                                                                                    child: Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(13.0, 0.0, 13.0, 0.0),
+                                                                                      child: Row(
+                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                        children: [
+                                                                                          Flexible(
+                                                                                            child: Text(
+                                                                                              getJsonField(
+                                                                                                myAddressItem,
+                                                                                                r'''$.address''',
+                                                                                              ).toString(),
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'Lato',
+                                                                                                    color: Color(0xFF3A3A3A),
+                                                                                                    fontSize: 14.0,
+                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                  ),
+                                                                                            ),
+                                                                                          ),
+                                                                                          if (functions
+                                                                                                  .jsonToInt(getJsonField(
+                                                                                                    myAddressItem,
+                                                                                                    r'''$.is_main_address''',
+                                                                                                  ))
+                                                                                                  .toString() ==
+                                                                                              '1')
+                                                                                            Container(
+                                                                                              width: 95.0,
+                                                                                              height: 22.0,
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: Color(0xFFDEDEDE),
+                                                                                                borderRadius: BorderRadius.circular(2.0),
+                                                                                              ),
+                                                                                              child: Row(
+                                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                children: [
+                                                                                                  Text(
+                                                                                                    'Main address',
+                                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                          fontFamily: 'Lato',
+                                                                                                          fontSize: 12.0,
+                                                                                                          fontWeight: FontWeight.w500,
+                                                                                                        ),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            16.0,
+                                                                            0.0,
+                                                                            8.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    InkWell(
+                                                                      splashColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      focusColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      hoverColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onTap:
+                                                                          () async {
+                                                                        context
+                                                                            .pushNamed(
+                                                                          'Contactdata-1',
+                                                                          queryParameters:
+                                                                              {
+                                                                            'taskCreation':
+                                                                                serializeParam(
+                                                                              false,
+                                                                              ParamType.bool,
+                                                                            ),
+                                                                            'addAnother':
+                                                                                serializeParam(
+                                                                              true,
+                                                                              ParamType.bool,
+                                                                            ),
+                                                                          }.withoutNulls,
+                                                                        );
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        width:
+                                                                            187.0,
+                                                                        height:
+                                                                            36.0,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(2.0),
+                                                                          border:
+                                                                              Border.all(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            width:
+                                                                                1.5,
+                                                                          ),
+                                                                        ),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              '+ Add another addresses',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Lato',
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    fontSize: 13.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Divider(
+                                                                height: 32.0,
+                                                                thickness: 1.0,
+                                                                color: Color(
+                                                                    0xFFDEDEDE),
+                                                              ),
+                                                              Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        32.0,
+                                                                        0.0,
+                                                                        32.0,
+                                                                        0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Identification:',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            color:
+                                                                                Color(0xFF222222),
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                    Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: valueOrDefault<
+                                                                            Color>(
+                                                                          functions
+                                                                                      .jsonToInt(getJsonField(
+                                                                                        contactdata3UserProfileReadResponse.jsonBody,
+                                                                                        r'''$.data.identified''',
+                                                                                      ))
+                                                                                      .toString() ==
+                                                                                  '0'
+                                                                              ? Color(0xFFD4D4D4)
+                                                                              : Color(0xFF63D840),
+                                                                          Color(
+                                                                              0xFFD4D4D4),
+                                                                        ),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(2.0),
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            10.0,
+                                                                            8.0,
+                                                                            10.0,
+                                                                            8.0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              functions
+                                                                                          .jsonToInt(getJsonField(
+                                                                                            contactdata3UserProfileReadResponse.jsonBody,
+                                                                                            r'''$.data.identified''',
+                                                                                          ))
+                                                                                          .toString() ==
+                                                                                      '0'
+                                                                                  ? 'No'
+                                                                                  : 'Yes',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Lato',
+                                                                                    color: FlutterFlowTheme.of(context).alternate,
+                                                                                    fontSize: 11.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    InkWell(
+                                                                      splashColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      focusColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      hoverColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onTap:
+                                                                          () async {
+                                                                        _model.apiResult96l = await TaskerpageBackendGroup
+                                                                            .updateIdentificationCall
+                                                                            .call(
+                                                                          id: getJsonField(
+                                                                            FFAppState().userProfile,
+                                                                            r'''$.data.name''',
+                                                                          ).toString(),
+                                                                          identified:
+                                                                              1,
+                                                                          apiGlobalKey:
+                                                                              FFAppState().apiKey,
+                                                                        );
+                                                                        if (!(_model.apiResult96l?.succeeded ??
+                                                                            true)) {
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(
+                                                                            SnackBar(
+                                                                              content: Text(
+                                                                                'you are not identified !',
+                                                                                style: TextStyle(
+                                                                                  color: Colors.white,
+                                                                                  fontSize: 14.0,
+                                                                                ),
+                                                                              ),
+                                                                              duration: Duration(milliseconds: 4000),
+                                                                              backgroundColor: Color(0xFFDD2525),
+                                                                            ),
+                                                                          );
+                                                                        }
+
+                                                                        setState(
+                                                                            () {});
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        width:
+                                                                            140.0,
+                                                                        height:
+                                                                            36.0,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                              blurRadius: 4.0,
+                                                                              color: Color(0x33000000),
+                                                                              offset: Offset(0.0, 2.0),
+                                                                            )
+                                                                          ],
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(1.0),
+                                                                        ),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              'Online Identification',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Lato',
+                                                                                    color: Color(0xFFF6F6F6),
+                                                                                    fontSize: 14.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Divider(
+                                                                height: 32.0,
+                                                                thickness: 1.0,
+                                                                color: Color(
+                                                                    0xFFDEDEDE),
+                                                              ),
+                                                              Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        32.0,
+                                                                        0.0,
+                                                                        32.0,
+                                                                        30.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Connect to: ',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(0.0),
+                                                                          child:
+                                                                              Image.asset(
+                                                                            'assets/images/ssf.png',
+                                                                            width:
+                                                                                35.0,
+                                                                            height:
+                                                                                35.0,
+                                                                            fit:
+                                                                                BoxFit.none,
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5.0,
+                                                                              0.0,
+                                                                              5.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              ClipRRect(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(0.0),
+                                                                            child:
+                                                                                Image.asset(
+                                                                              'assets/images/sse.png',
+                                                                              width: 35.0,
+                                                                              height: 35.0,
+                                                                              fit: BoxFit.none,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(0.0),
+                                                                          child:
+                                                                              Image.asset(
+                                                                            'assets/images/Clip_dgroup.png',
+                                                                            width:
+                                                                                35.0,
+                                                                            height:
+                                                                                35.0,
+                                                                            fit:
+                                                                                BoxFit.none,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
                                                             ],
                                                           ),
-                                                          Divider(
-                                                            height: 30.0,
-                                                            thickness: 1.0,
-                                                            color: Color(
-                                                                0xFFADB5FC),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  context.pushNamed(
-                                                    'Contactdata-1',
-                                                    queryParameters: {
-                                                      'addAnother':
-                                                          serializeParam(
-                                                        true,
-                                                        ParamType.bool,
+                                                        ),
                                                       ),
-                                                    }.withoutNulls,
-                                                  );
-                                                },
-                                                child: Container(
-                                                  width: 180.0,
-                                                  height: 40.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2.0),
-                                                    border: Border.all(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
                                                     ),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        '+ Add another addresses',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                  ],
                                                 ),
                                               ),
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  context.pushNamed(
-                                                      'Contactdata-2');
-                                                },
-                                                child: FaIcon(
-                                                  FontAwesomeIcons.solidEdit,
-                                                  color: Color(0xFF8A8A8A),
-                                                  size: 19.0,
+                                              if (responsiveVisibility(
+                                                context: context,
+                                                phone: false,
+                                                tablet: false,
+                                                tabletLandscape: false,
+                                              ))
+                                                wrapWithModel(
+                                                  model: _model.adCardWebModel,
+                                                  updateCallback: () =>
+                                                      setState(() {}),
+                                                  child: AdCardWebWidget(),
                                                 ),
-                                              ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 16.0, 32.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 4.0,
-                                          color: Color(0x33000000),
-                                          offset: Offset(0.0, 2.0),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(0.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20.5, 16.0, 20.5, 16.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Identification:',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondary,
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: valueOrDefault<Color>(
-                                                functions
-                                                            .jsonToInt(
-                                                                getJsonField(
-                                                              contactdata3UserProfileReadResponse
-                                                                  .jsonBody,
-                                                              r'''$.data.identified''',
-                                                            ))
-                                                            .toString() ==
-                                                        '0'
-                                                    ? Color(0xFFD4D4D4)
-                                                    : Color(0xFF63D840),
-                                                Color(0xFFD4D4D4),
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      10.0, 8.0, 10.0, 8.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    functions
-                                                                .jsonToInt(
-                                                                    getJsonField(
-                                                                  contactdata3UserProfileReadResponse
-                                                                      .jsonBody,
-                                                                  r'''$.data.identified''',
-                                                                ))
-                                                                .toString() ==
-                                                            '0'
-                                                        ? 'No'
-                                                        : 'Yes',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          fontSize: 11.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              _model.apiResult96l =
-                                                  await TaskerpageBackendGroup
-                                                      .updateIdentificationCall
-                                                      .call(
-                                                id: getJsonField(
-                                                  FFAppState().userProfile,
-                                                  r'''$.data.name''',
-                                                ).toString(),
-                                                identified: 1,
-                                                apiGlobalKey:
-                                                    FFAppState().apiKey,
-                                              );
-                                              if (!(_model.apiResult96l
-                                                      ?.succeeded ??
-                                                  true)) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'you are not identified !',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14.0,
-                                                      ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
-                                                    backgroundColor:
-                                                        Color(0xFFDD2525),
-                                                  ),
-                                                );
-                                              }
-
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              width: 140.0,
-                                              height: 36.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    blurRadius: 4.0,
-                                                    color: Color(0x33000000),
-                                                    offset: Offset(0.0, 2.0),
-                                                  )
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(1.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'Online Identification',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFFF6F6F6),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Divider(
-                            height: 32.0,
-                            thickness: 1.0,
-                            indent: 32.0,
-                            endIndent: 32.0,
-                            color: Color(0xFFADB5FC),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 0.0, 32.0, 30.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Connect to: ',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/ssf.png',
-                                        width: 35.0,
-                                        height: 35.0,
-                                        fit: BoxFit.none,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          5.0, 0.0, 5.0, 0.0),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: Image.asset(
-                                          'assets/images/sse.png',
-                                          width: 35.0,
-                                          height: 35.0,
-                                          fit: BoxFit.none,
                                         ),
                                       ),
-                                    ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/Clip_dgroup.png',
-                                        width: 35.0,
-                                        height: 35.0,
-                                        fit: BoxFit.none,
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            desktop: false,
+                                          ))
+                                            wrapWithModel(
+                                              model: _model.navBarModel,
+                                              updateCallback: () =>
+                                                  setState(() {}),
+                                              child: NavBarWidget(),
+                                            ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (responsiveVisibility(
+                          context: context,
+                          phone: false,
+                          tablet: false,
+                          tabletLandscape: false,
+                        ))
+                          SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                wrapWithModel(
+                                  model: _model.sideBarRightModel,
+                                  updateCallback: () => setState(() {}),
+                                  child: SideBarRightWidget(),
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                      ],
                     ),
                   ),
+                  if (responsiveVisibility(
+                    context: context,
+                    phone: false,
+                    tablet: false,
+                    tabletLandscape: false,
+                  ))
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [],
+                    ),
                 ],
               ),
             ),

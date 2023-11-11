@@ -20,6 +20,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'tasker_list_model.dart';
 export 'tasker_list_model.dart';
 
@@ -75,6 +76,7 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
         .then((loc) => setState(() => currentUserLocationValue = loc));
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -109,11 +111,11 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
         color: FlutterFlowTheme.of(context).primaryBackground,
         child: Center(
           child: SizedBox(
-            width: 50.0,
-            height: 50.0,
+            width: 35.0,
+            height: 35.0,
             child: SpinKitThreeBounce(
               color: FlutterFlowTheme.of(context).primary,
-              size: 50.0,
+              size: 35.0,
             ),
           ),
         ),
@@ -130,14 +132,15 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -165,7 +168,8 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
                                 enableDrag: false,
                                 context: context,
                                 builder: (context) {
-                                  return GestureDetector(
+                                  return WebViewAware(
+                                      child: GestureDetector(
                                     onTap: () => _model
                                             .unfocusNode.canRequestFocus
                                         ? FocusScope.of(context)
@@ -182,7 +186,7 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
                                         },
                                       ),
                                     ),
-                                  );
+                                  ));
                                 },
                               ).then((value) => safeSetState(
                                   () => _model.updatedTaskerFilter = value));
@@ -339,17 +343,19 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
                       if (!snapshot.hasData) {
                         return Center(
                           child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
+                            width: 35.0,
+                            height: 35.0,
                             child: SpinKitThreeBounce(
                               color: FlutterFlowTheme.of(context).primary,
-                              size: 50.0,
+                              size: 35.0,
                             ),
                           ),
                         );
                       }
                       final columnCustomerProfileListResponse = snapshot.data!;
                       return RefreshIndicator(
+                        color: FlutterFlowTheme.of(context).primary,
+                        backgroundColor: FlutterFlowTheme.of(context).tertiary,
                         onRefresh: () async {
                           setState(() => _model.apiRequestCompleter1 = null);
                           await _model.waitForApiRequestCompleted1();
@@ -666,13 +672,13 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
                                           if (!snapshot.hasData) {
                                             return Center(
                                               child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
+                                                width: 35.0,
+                                                height: 35.0,
                                                 child: SpinKitThreeBounce(
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primary,
-                                                  size: 50.0,
+                                                  size: 35.0,
                                                 ),
                                               ),
                                             );

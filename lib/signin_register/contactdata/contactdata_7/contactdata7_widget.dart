@@ -16,6 +16,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'contactdata7_model.dart';
 export 'contactdata7_model.dart';
 
@@ -105,6 +106,7 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
       r'''$.data.phone_number''',
     ).toString().toString()));
     _model.textFieldFocusNode ??= FocusNode();
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -144,14 +146,15 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,

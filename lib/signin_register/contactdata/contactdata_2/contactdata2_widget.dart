@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'contactdata2_model.dart';
 export 'contactdata2_model.dart';
 
@@ -81,7 +82,8 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: Container(
               width: 100.0,
@@ -95,7 +97,7 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                 child: DrawerContentWidget(),
               ),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -171,12 +173,12 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
+                                        width: 35.0,
+                                        height: 35.0,
                                         child: SpinKitThreeBounce(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          size: 50.0,
+                                          size: 35.0,
                                         ),
                                       ),
                                     );
@@ -265,12 +267,12 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
+                                        width: 35.0,
+                                        height: 35.0,
                                         child: SpinKitThreeBounce(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          size: 50.0,
+                                          size: 35.0,
                                         ),
                                       ),
                                     );

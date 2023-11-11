@@ -55,6 +55,7 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
 
     _model.bidAmountController ??= TextEditingController();
     _model.bidAmountFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

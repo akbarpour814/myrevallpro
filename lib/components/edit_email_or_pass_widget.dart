@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'edit_email_or_pass_model.dart';
 export 'edit_email_or_pass_model.dart';
 
@@ -34,17 +35,23 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
     _model.expandableController1 = ExpandableController(initialExpanded: false);
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
+
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+
     _model.textController3 ??= TextEditingController();
     _model.textFieldFocusNode3 ??= FocusNode();
+
     _model.expandableController2 = ExpandableController(initialExpanded: false);
     _model.textController4 ??= TextEditingController();
     _model.textFieldFocusNode4 ??= FocusNode();
+
     _model.textController5 ??= TextEditingController();
     _model.textFieldFocusNode5 ??= FocusNode();
+
     _model.textController6 ??= TextEditingController();
     _model.textFieldFocusNode6 ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -1259,7 +1266,9 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                           context: context,
                                                           builder:
                                                               (alertDialogContext) {
-                                                            return AlertDialog(
+                                                            return WebViewAware(
+                                                                child:
+                                                                    AlertDialog(
                                                               title: Text(
                                                                   'New password'),
                                                               content: Text(
@@ -1273,7 +1282,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                                       'Ok'),
                                                                 ),
                                                               ],
-                                                            );
+                                                            ));
                                                           },
                                                         );
                                                       } else {

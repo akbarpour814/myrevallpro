@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'address_card_model.dart';
 export 'address_card_model.dart';
 
@@ -298,7 +299,8 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                         await showDialog(
                           context: context,
                           builder: (alertDialogContext) {
-                            return AlertDialog(
+                            return WebViewAware(
+                                child: AlertDialog(
                               title: Text('LinkExistsError'),
                               content: Text(
                                   'you cant remove this address , This address has been used somewhere before !'),
@@ -309,7 +311,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                                   child: Text('Ok'),
                                 ),
                               ],
-                            );
+                            ));
                           },
                         );
                       }

@@ -142,13 +142,13 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                             if (!snapshot.hasData) {
                                               return Center(
                                                 child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
+                                                  width: 35.0,
+                                                  height: 35.0,
                                                   child: SpinKitThreeBounce(
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primary,
-                                                    size: 50.0,
+                                                    size: 35.0,
                                                   ),
                                                 ),
                                               );
@@ -213,11 +213,11 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                             if (!snapshot.hasData) {
                               return Center(
                                 child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
+                                  width: 35.0,
+                                  height: 35.0,
                                   child: SpinKitThreeBounce(
                                     color: FlutterFlowTheme.of(context).primary,
-                                    size: 50.0,
+                                    size: 35.0,
                                   ),
                                 ),
                               );
@@ -260,13 +260,13 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                           if (!snapshot.hasData) {
                                             return Center(
                                               child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
+                                                width: 35.0,
+                                                height: 35.0,
                                                 child: SpinKitThreeBounce(
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primary,
-                                                  size: 50.0,
+                                                  size: 35.0,
                                                 ),
                                               ),
                                             );
@@ -520,6 +520,7 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                                 ),
                                               ),
                                               Divider(
+                                                height: 0.0,
                                                 thickness: 1.0,
                                                 color: Color(0xFFD2D2D2),
                                               ),

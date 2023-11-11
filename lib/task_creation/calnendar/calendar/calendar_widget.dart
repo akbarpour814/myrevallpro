@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'calendar_model.dart';
 export 'calendar_model.dart';
 
@@ -156,7 +157,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.6,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.navigationBarModel,
@@ -172,18 +174,19 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 },
               ),
             ),
-          ),
+          )),
         ),
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: Column(
           mainAxisSize: MainAxisSize.max,
@@ -404,8 +407,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     final _datePicked2Date =
                                         await showDatePicker(
                                       context: context,
-                                      initialDate: _model.datePicked1!,
-                                      firstDate: _model.datePicked1!,
+                                      initialDate: (_model.datePicked1 ??
+                                          DateTime.now()),
+                                      firstDate: (_model.datePicked1 ??
+                                          DateTime.now()),
                                       lastDate: DateTime(2050),
                                     );
 

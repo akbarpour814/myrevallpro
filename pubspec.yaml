@@ -96,7 +96,7 @@ dependencies:
   pin_code_fields: 7.4.0
   plugin_platform_interface: 2.1.3
   provider: 6.0.4
-  share_plus: 6.3.1
+  share_plus: ^6.3.4
   shared_preferences: 2.0.15
   shared_preferences_android: 2.1.0
   shared_preferences_ios: 2.1.1
@@ -131,7 +131,9 @@ dependencies:
 
 dev_dependencies:
   flutter_launcher_icons: 0.13.1
+  flutter_lints: 3.0.0
   image: 4.0.17
+  lints: 3.0.0
 
   flutter_test:
     sdk: flutter
@@ -167,10 +169,6 @@ flutter:
     - assets/rive_animations/
     - assets/pdfs/
   fonts:
-    - family: 'gothom'
-      fonts:
-        - asset: assets/fonts/GothamBold.ttf
-          weight: 700
     - family: 'logo'
       fonts:
         - asset: assets/fonts/GothamBold.ttf

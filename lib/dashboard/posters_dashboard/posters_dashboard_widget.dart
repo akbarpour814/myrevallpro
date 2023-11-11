@@ -17,6 +17,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'posters_dashboard_model.dart';
 export 'posters_dashboard_model.dart';
 
@@ -71,11 +72,11 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
             backgroundColor: Colors.white,
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 35.0,
+                height: 35.0,
                 child: SpinKitThreeBounce(
                   color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+                  size: 35.0,
                 ),
               ),
             ),
@@ -91,7 +92,8 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
             backgroundColor: Colors.white,
             drawer: Container(
               width: MediaQuery.sizeOf(context).width * 0.85,
-              child: Drawer(
+              child: WebViewAware(
+                  child: Drawer(
                 elevation: 16.0,
                 child: Container(
                   width: 100.0,
@@ -105,7 +107,7 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                     child: DrawerContentWidget(),
                   ),
                 ),
-              ),
+              )),
             ),
             body: SafeArea(
               top: true,
@@ -828,14 +830,14 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                         if (!snapshot.hasData) {
                                                           return Center(
                                                             child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
+                                                              width: 35.0,
+                                                              height: 35.0,
                                                               child:
                                                                   SpinKitThreeBounce(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primary,
-                                                                size: 50.0,
+                                                                size: 35.0,
                                                               ),
                                                             ),
                                                           );
@@ -924,13 +926,13 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                           child:
                                                                               SizedBox(
                                                                             width:
-                                                                                50.0,
+                                                                                35.0,
                                                                             height:
-                                                                                50.0,
+                                                                                35.0,
                                                                             child:
                                                                                 SpinKitThreeBounce(
                                                                               color: FlutterFlowTheme.of(context).primary,
-                                                                              size: 50.0,
+                                                                              size: 35.0,
                                                                             ),
                                                                           ),
                                                                         );
@@ -1478,14 +1480,14 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
+                                                      width: 35.0,
+                                                      height: 35.0,
                                                       child: SpinKitThreeBounce(
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
-                                                        size: 50.0,
+                                                        size: 35.0,
                                                       ),
                                                     ),
                                                   );

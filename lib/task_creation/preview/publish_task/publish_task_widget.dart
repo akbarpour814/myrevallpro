@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'publish_task_model.dart';
 export 'publish_task_model.dart';
 
@@ -74,11 +75,11 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
             backgroundColor: Color(0xFFF6F6F6),
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 35.0,
+                height: 35.0,
                 child: SpinKitThreeBounce(
                   color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+                  size: 35.0,
                 ),
               ),
             ),
@@ -95,7 +96,8 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
             backgroundColor: Color(0xFFF6F6F6),
             drawer: Container(
               width: MediaQuery.sizeOf(context).width * 0.6,
-              child: Drawer(
+              child: WebViewAware(
+                  child: Drawer(
                 elevation: 16.0,
                 child: wrapWithModel(
                   model: _model.navigationBarModel,
@@ -111,18 +113,19 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                     },
                   ),
                 ),
-              ),
+              )),
             ),
             endDrawer: Container(
               width: double.infinity,
-              child: Drawer(
+              child: WebViewAware(
+                  child: Drawer(
                 elevation: 16.0,
                 child: wrapWithModel(
                   model: _model.mainDrawerModel,
                   updateCallback: () => setState(() {}),
                   child: MainDrawerWidget(),
                 ),
-              ),
+              )),
             ),
             body: SafeArea(
               top: true,
@@ -266,14 +269,14 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                   if (!snapshot.hasData) {
                                                     return Center(
                                                       child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
+                                                        width: 35.0,
+                                                        height: 35.0,
                                                         child:
                                                             SpinKitThreeBounce(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
-                                                          size: 50.0,
+                                                          size: 35.0,
                                                         ),
                                                       ),
                                                     );
@@ -425,7 +428,13 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                             publishTaskPostReadResponse
                                                                 .jsonBody,
                                                             r'''$.data.skill_name''',
-                                                          ).toString(),
+                                                          )
+                                                              .toString()
+                                                              .maybeHandleOverflow(
+                                                                maxChars: 29,
+                                                                replacement:
+                                                                    '…',
+                                                              ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -477,7 +486,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                         Expanded(
                                                           child: Container(
                                                             width: 100.0,
-                                                            height: 45.0,
+                                                            height: 40.0,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Color(
@@ -485,7 +494,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          5.0),
+                                                                          2.0),
                                                             ),
                                                             child: Row(
                                                               mainAxisSize:
@@ -1437,7 +1446,8 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                       enableDrag: false,
                                       context: context,
                                       builder: (context) {
-                                        return GestureDetector(
+                                        return WebViewAware(
+                                            child: GestureDetector(
                                           onTap: () => _model
                                                   .unfocusNode.canRequestFocus
                                               ? FocusScope.of(context)
@@ -1450,7 +1460,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                 context),
                                             child: TermofServiceWidget(),
                                           ),
-                                        );
+                                        ));
                                       },
                                     ).then((value) => safeSetState(() {}));
                                   },

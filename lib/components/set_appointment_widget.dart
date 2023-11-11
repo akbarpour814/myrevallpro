@@ -245,11 +245,11 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
             if (!snapshot.hasData) {
               return Center(
                 child: SizedBox(
-                  width: 50.0,
-                  height: 50.0,
+                  width: 35.0,
+                  height: 35.0,
                   child: SpinKitThreeBounce(
                     color: FlutterFlowTheme.of(context).primary,
-                    size: 50.0,
+                    size: 35.0,
                   ),
                 ),
               );
@@ -290,7 +290,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                         Icons.close_rounded,
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
-                                        size: 20.0,
+                                        size: 24.0,
                                       ),
                                     ),
                                   ],
@@ -370,49 +370,64 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                         final appointmentTypeItem =
                                             appointmentType[
                                                 appointmentTypeIndex];
-                                        return Container(
-                                          width: 100.0,
-                                          height: 100.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(2.0),
-                                            border: Border.all(
-                                              color: appointmentTypeItem ==
-                                                      _model.type
-                                                  ? FlutterFlowTheme.of(context)
-                                                      .primary
-                                                  : FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                appointmentTypeItem,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Lato',
-                                                      color: appointmentTypeItem ==
-                                                              _model.type
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondary,
-                                                      fontSize: 13.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                        return InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            setState(() {
+                                              _model.type = appointmentTypeItem;
+                                            });
+                                          },
+                                          child: Container(
+                                            width: 100.0,
+                                            height: 100.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(2.0),
+                                              border: Border.all(
+                                                color: appointmentTypeItem ==
+                                                        _model.type
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
                                               ),
-                                            ],
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  appointmentTypeItem,
+                                                  style:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: appointmentTypeItem ==
+                                                                    _model.type
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                            fontSize: 13.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         );
                                       },
@@ -488,12 +503,12 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
+                                      width: 35.0,
+                                      height: 35.0,
                                       child: SpinKitThreeBounce(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
-                                        size: 50.0,
+                                        size: 35.0,
                                       ),
                                     ),
                                   );

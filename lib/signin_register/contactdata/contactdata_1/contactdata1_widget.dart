@@ -20,6 +20,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'contactdata1_model.dart';
 export 'contactdata1_model.dart';
 
@@ -222,16 +223,22 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
 
     _model.streetController ??= TextEditingController();
     _model.streetFocusNode ??= FocusNode();
+
     _model.noController ??= TextEditingController();
     _model.noFocusNode ??= FocusNode();
+
     _model.postalCodeController ??= TextEditingController();
     _model.postalCodeFocusNode ??= FocusNode();
+
     _model.cityController ??= TextEditingController();
     _model.cityFocusNode ??= FocusNode();
+
     _model.stateController ??= TextEditingController();
     _model.stateFocusNode ??= FocusNode();
+
     _model.countryController ??= TextEditingController();
     _model.countryFocusNode ??= FocusNode();
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -274,7 +281,8 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: Container(
               width: 100.0,
@@ -288,7 +296,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                 child: DrawerContentWidget(),
               ),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -472,7 +480,8 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                     enableDrag: false,
                                     context: context,
                                     builder: (context) {
-                                      return GestureDetector(
+                                      return WebViewAware(
+                                          child: GestureDetector(
                                         onTap: () => _model
                                                 .unfocusNode.canRequestFocus
                                             ? FocusScope.of(context)
@@ -487,14 +496,15 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                 _model.placePickerValue.latLng,
                                           ),
                                         ),
-                                      );
+                                      ));
                                     },
                                   ).then((value) => safeSetState(() {}));
                                 } else {
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
-                                      return AlertDialog(
+                                      return WebViewAware(
+                                          child: AlertDialog(
                                         title: Text('Can\'t load address'),
                                         content: Text(
                                             'your address is not accurate enough'),
@@ -505,7 +515,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                             child: Text('Ok'),
                                           ),
                                         ],
-                                      );
+                                      ));
                                     },
                                   );
                                 }
@@ -587,7 +597,8 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                     enableDrag: false,
                                     context: context,
                                     builder: (context) {
-                                      return GestureDetector(
+                                      return WebViewAware(
+                                          child: GestureDetector(
                                         onTap: () => _model
                                                 .unfocusNode.canRequestFocus
                                             ? FocusScope.of(context)
@@ -602,14 +613,15 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                 _model.placePickerValue.latLng,
                                           ),
                                         ),
-                                      );
+                                      ));
                                     },
                                   ).then((value) => safeSetState(() {}));
                                 } else {
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
-                                      return AlertDialog(
+                                      return WebViewAware(
+                                          child: AlertDialog(
                                         title: Text('Can\'t load address'),
                                         content: Text(
                                             'your address is not accurate enough'),
@@ -620,7 +632,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                             child: Text('Ok'),
                                           ),
                                         ],
-                                      );
+                                      ));
                                     },
                                   );
                                 }

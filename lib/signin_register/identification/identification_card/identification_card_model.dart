@@ -1,8 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/badge_single_icon_widget.dart';
+import '/components/badges_header_widget.dart';
+import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
+import '/components/side_bar_left_profile_widget.dart';
+import '/components/side_bar_right_widget.dart';
 import '/components/wizard_footer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -19,6 +23,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class IdentificationCardModel
     extends FlutterFlowModel<IdentificationCardWidget> {
@@ -29,8 +34,16 @@ class IdentificationCardModel
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for Header_web component.
+  late HeaderWebModel headerWebModel;
+  // Model for sideBar_left_profile component.
+  late SideBarLeftProfileModel sideBarLeftProfileModel;
   // Model for Header component.
   late HeaderModel headerModel;
+  // Model for Badges_header component.
+  late BadgesHeaderModel badgesHeaderModel;
   // Model for badgeSingleIcon component.
   late BadgeSingleIconModel badgeSingleIconModel;
   // Model for NavBar component.
@@ -39,26 +52,35 @@ class IdentificationCardModel
   late WizardFooterModel wizardFooterModel;
   // Stores action output result for [Backend Call - API (Update Customer Profile Badges)] action in wizardFooter widget.
   ApiCallResponse? apiResultq16;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
+  // Model for sideBar_Right component.
+  late SideBarRightModel sideBarRightModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
+    headerWebModel = createModel(context, () => HeaderWebModel());
+    sideBarLeftProfileModel =
+        createModel(context, () => SideBarLeftProfileModel());
     headerModel = createModel(context, () => HeaderModel());
+    badgesHeaderModel = createModel(context, () => BadgesHeaderModel());
     badgeSingleIconModel = createModel(context, () => BadgeSingleIconModel());
     navBarModel = createModel(context, () => NavBarModel());
     wizardFooterModel = createModel(context, () => WizardFooterModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
+    sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
+    headerWebModel.dispose();
+    sideBarLeftProfileModel.dispose();
     headerModel.dispose();
+    badgesHeaderModel.dispose();
     badgeSingleIconModel.dispose();
     navBarModel.dispose();
     wizardFooterModel.dispose();
-    mainDrawerModel.dispose();
+    sideBarRightModel.dispose();
   }
 
   /// Action blocks are added here.

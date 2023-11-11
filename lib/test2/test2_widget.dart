@@ -1,14 +1,18 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'test2_model.dart';
 export 'test2_model.dart';
 
@@ -37,6 +41,11 @@ class _Test2WidgetState extends State<Test2Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => Test2Model());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      scaffoldKey.currentState!.openEndDrawer();
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -68,6 +77,18 @@ class _Test2WidgetState extends State<Test2Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0x00FFFFFF),
+        endDrawer: Container(
+          width: double.infinity,
+          child: WebViewAware(
+              child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
+            ),
+          )),
+        ),
         body: SafeArea(
           top: true,
           child: FutureBuilder<ApiCallResponse>(
@@ -81,11 +102,11 @@ class _Test2WidgetState extends State<Test2Widget> {
               if (!snapshot.hasData) {
                 return Center(
                   child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 35.0,
+                    height: 35.0,
                     child: SpinKitThreeBounce(
                       color: FlutterFlowTheme.of(context).primary,
-                      size: 50.0,
+                      size: 35.0,
                     ),
                   ),
                 );
@@ -110,12 +131,25 @@ class _Test2WidgetState extends State<Test2Widget> {
                     itemCount: chatRooms.length,
                     itemBuilder: (context, chatRoomsIndex) {
                       final chatRoomsItem = chatRooms[chatRoomsIndex];
-                      return Text(
-                        valueOrDefault<String>(
-                          chatRoomsItem.room,
-                          '000',
+                      return InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await actions.downloadVCard(
+                            functions.createVCardString('Mohammad',
+                                '+989129568172', 'darbanhandrew@gmail.com')!,
+                            'vcard.vcf',
+                          );
+                        },
+                        child: Text(
+                          valueOrDefault<String>(
+                            chatRoomsItem.room,
+                            '000',
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                         ),
-                        style: FlutterFlowTheme.of(context).bodyMedium,
                       );
                     },
                   );

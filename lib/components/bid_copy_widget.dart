@@ -53,6 +53,7 @@ class _BidCopyWidgetState extends State<BidCopyWidget> {
 
     _model.bidAmountController ??= TextEditingController();
     _model.bidAmountFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

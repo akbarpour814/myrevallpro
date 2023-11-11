@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
-import '/components/termof_service_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -16,6 +15,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'signup_model.dart';
 export 'signup_model.dart';
 
@@ -56,10 +56,13 @@ class _SignupWidgetState extends State<SignupWidget> {
 
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
+
     _model.password1Controller ??= TextEditingController();
     _model.password1FocusNode ??= FocusNode();
+
     _model.password2Controller ??= TextEditingController();
     _model.password2FocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -95,14 +98,15 @@ class _SignupWidgetState extends State<SignupWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -767,25 +771,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                enableDrag: false,
-                                context: context,
-                                builder: (context) {
-                                  return GestureDetector(
-                                    onTap: () => _model
-                                            .unfocusNode.canRequestFocus
-                                        ? FocusScope.of(context)
-                                            .requestFocus(_model.unfocusNode)
-                                        : FocusScope.of(context).unfocus(),
-                                    child: Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: TermofServiceWidget(),
-                                    ),
-                                  );
-                                },
-                              ).then((value) => safeSetState(() {}));
+                              await launchURL(
+                                  'https://taskerpage.com/terms-and-conditions');
                             },
                             child: Text(
                               'Terms of Service',
@@ -820,7 +807,10 @@ class _SignupWidgetState extends State<SignupWidget> {
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            onTap: () async {},
+                            onTap: () async {
+                              await launchURL(
+                                  'https://taskerpage.com/privacy-policy');
+                            },
                             child: Text(
                               'Privacy Policy',
                               style: FlutterFlowTheme.of(context)

@@ -36,12 +36,14 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
       r'''$.data.first_name''',
     ).toString().toString());
     _model.textFieldFocusNode1 ??= FocusNode();
+
     _model.textController2 ??= TextEditingController(
         text: getJsonField(
       FFAppState().userProfile,
       r'''$.data.last_name''',
     ).toString().toString());
     _model.textFieldFocusNode2 ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

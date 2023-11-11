@@ -1,8 +1,13 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/ad_card_web_widget.dart';
+import '/components/badges_header_widget.dart';
+import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/rate_card_widget.dart';
+import '/components/side_bar_left_profile_widget.dart';
+import '/components/side_bar_right_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -13,6 +18,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'rates_list_model.dart';
 export 'rates_list_model.dart';
 
@@ -71,358 +77,591 @@ class _RatesListWidgetState extends State<RatesListWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              wrapWithModel(
-                model: _model.headerModel,
-                updateCallback: () => setState(() {}),
-                child: HeaderWidget(
-                  openDrawer: () async {
-                    scaffoldKey.currentState!.openEndDrawer();
-                  },
+              if (responsiveVisibility(
+                context: context,
+                phone: false,
+                tablet: false,
+                tabletLandscape: false,
+              ))
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: wrapWithModel(
+                        model: _model.headerWebModel,
+                        updateCallback: () => setState(() {}),
+                        child: HeaderWebWidget(),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 32.0, 32.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Rates',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if (responsiveVisibility(
+                      context: context,
+                      phone: false,
+                      tablet: false,
+                      tabletLandscape: false,
+                    ))
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: wrapWithModel(
+                              model: _model.sideBarLeftProfileModel,
+                              updateCallback: () => setState(() {}),
+                              child: SideBarLeftProfileWidget(),
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 20.0, 32.0, 0.0),
-                        child: FutureBuilder<ApiCallResponse>(
-                          future:
-                              TaskerpageBackendGroup.getUserRateListCall.call(
-                            filters:
-                                '[[\"customer_profile\",\"=\",\"${getJsonField(
-                              FFAppState().userProfile,
-                              r'''$.data.name''',
-                            ).toString()}\"]]',
-                            fields: '[\"name\"]',
-                            apiGlobalKey: FFAppState().apiKey,
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: SpinKitThreeBounce(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 50.0,
-                                  ),
-                                ),
-                              );
-                            }
-                            final listViewGetUserRateListResponse =
-                                snapshot.data!;
-                            return Builder(
-                              builder: (context) {
-                                final userRateNamesList = functions
-                                    .convertMap(TaskerpageBackendGroup
-                                        .getUserRateListCall
-                                        .userRateNamesList(
-                                          listViewGetUserRateListResponse
-                                              .jsonBody,
-                                        )!
-                                        .toList())
-                                    .map((e) => e != null && e != ''
-                                        ? UserRateStruct.fromMap(e)
-                                        : null)
-                                    .withoutNulls
-                                    .toList();
-                                if (userRateNamesList.isEmpty) {
-                                  return Image.asset(
-                                    'assets/images/Group_2179.png',
-                                  );
-                                }
-                                return InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    context.pushNamed(
-                                      'RateSignUp',
-                                      queryParameters: {
-                                        'name': serializeParam(
-                                          '',
-                                          ParamType.String,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  },
-                                  child: ListView.separated(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: userRateNamesList.length,
-                                    separatorBuilder: (_, __) =>
-                                        SizedBox(height: 16.0),
-                                    itemBuilder:
-                                        (context, userRateNamesListIndex) {
-                                      final userRateNamesListItem =
-                                          userRateNamesList[
-                                              userRateNamesListIndex];
-                                      return FutureBuilder<ApiCallResponse>(
-                                        future: TaskerpageBackendGroup
-                                            .getUserRateDetailsCall
-                                            .call(
-                                          name: userRateNamesListItem.name,
-                                          apiGlobalKey: FFAppState().apiKey,
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child: SpinKitThreeBounce(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 50.0,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          final rateCardGetUserRateDetailsResponse =
-                                              snapshot.data!;
-                                          return wrapWithModel(
-                                            model:
-                                                _model.rateCardModels.getModel(
-                                              userRateNamesListItem.name,
-                                              userRateNamesListIndex,
-                                            ),
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            child: RateCardWidget(
-                                              key: Key(
-                                                'Keyknb_${userRateNamesListItem.name}',
-                                              ),
-                                              userRate: UserRateStruct.fromMap(
-                                                  getJsonField(
-                                                rateCardGetUserRateDetailsResponse
-                                                    .jsonBody,
-                                                r'''$.data''',
-                                              )),
-                                              indexInList:
-                                                  userRateNamesListIndex,
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 16.0, 32.0, 30.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed(
-                                    'RateSignUp',
-                                    queryParameters: {
-                                      'name': serializeParam(
-                                        '',
-                                        ParamType.String,
-                                      ),
-                                    }.withoutNulls,
-                                  );
-                                },
-                                child: Container(
-                                  width: 100.0,
-                                  height: 104.0,
-                                  decoration: BoxDecoration(
-                                    color: Color(0x00FFFFFF),
-                                    image: DecorationImage(
-                                      fit: BoxFit.contain,
-                                      image: Image.asset(
-                                        'assets/images/Rectangle_3047.png',
-                                      ).image,
-                                    ),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 164.0,
-                                        height: 36.0,
-                                        decoration: BoxDecoration(
-                                          color: Color(0x00FFFFFF),
-                                          borderRadius:
-                                              BorderRadius.circular(1.0),
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              '+ Add another rate',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Lato',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    fontSize: 14.0,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (widget.isEdit)
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: 60.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 5.0,
-                            color: Color(0x33000000),
-                            offset: Offset(5.0, 5.0),
-                            spreadRadius: 10.0,
-                          )
                         ],
                       ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 0.0, 32.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'I\'ll do it later',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF8A8A8A),
-                                    fontSize: 14.0,
-                                  ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed('Profiledetails');
-                              },
-                              child: Container(
-                                width: 104.0,
-                                height: 36.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  borderRadius: BorderRadius.circular(1.0),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Save',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                          ),
-                                    ),
-                                  ],
-                                ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              width: double.infinity,
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                color: Color(0x00FFFFFF),
                               ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  if (responsiveVisibility(
+                                    context: context,
+                                    desktop: false,
+                                  ))
+                                    wrapWithModel(
+                                      model: _model.headerModel,
+                                      updateCallback: () => setState(() {}),
+                                      child: HeaderWidget(
+                                        openDrawer: () async {
+                                          scaffoldKey.currentState!
+                                              .openEndDrawer();
+                                        },
+                                      ),
+                                    ),
+                                  Expanded(
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            phone: false,
+                                            tablet: false,
+                                            tabletLandscape: false,
+                                          ))
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      27.0, 0.0, 27.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: wrapWithModel(
+                                                      model: _model
+                                                          .badgesHeaderModel,
+                                                      updateCallback: () =>
+                                                          setState(() {}),
+                                                      child:
+                                                          BadgesHeaderWidget(),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 32.0, 32.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Rates',
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 20.0, 32.0, 0.0),
+                                            child:
+                                                FutureBuilder<ApiCallResponse>(
+                                              future: TaskerpageBackendGroup
+                                                  .getUserRateListCall
+                                                  .call(
+                                                filters:
+                                                    '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                  FFAppState().userProfile,
+                                                  r'''$.data.name''',
+                                                ).toString()}\"]]',
+                                                fields: '[\"name\"]',
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 35.0,
+                                                      height: 35.0,
+                                                      child: SpinKitThreeBounce(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        size: 35.0,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                final listViewGetUserRateListResponse =
+                                                    snapshot.data!;
+                                                return Builder(
+                                                  builder: (context) {
+                                                    final userRateNamesList =
+                                                        functions
+                                                            .convertMap(TaskerpageBackendGroup
+                                                                .getUserRateListCall
+                                                                .userRateJsonList(
+                                                                  listViewGetUserRateListResponse
+                                                                      .jsonBody,
+                                                                )!
+                                                                .toList())
+                                                            .map((e) => e !=
+                                                                        null &&
+                                                                    e != ''
+                                                                ? UserRateStruct
+                                                                    .fromMap(e)
+                                                                : null)
+                                                            .withoutNulls
+                                                            .toList();
+                                                    return InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                          'RateSignUp',
+                                                          queryParameters: {
+                                                            'name':
+                                                                serializeParam(
+                                                              '',
+                                                              ParamType.String,
+                                                            ),
+                                                          }.withoutNulls,
+                                                        );
+                                                      },
+                                                      child: ListView.separated(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount:
+                                                            userRateNamesList
+                                                                .length,
+                                                        separatorBuilder:
+                                                            (_, __) => SizedBox(
+                                                                height: 16.0),
+                                                        itemBuilder: (context,
+                                                            userRateNamesListIndex) {
+                                                          final userRateNamesListItem =
+                                                              userRateNamesList[
+                                                                  userRateNamesListIndex];
+                                                          return FutureBuilder<
+                                                              ApiCallResponse>(
+                                                            future: TaskerpageBackendGroup
+                                                                .getUserRateDetailsCall
+                                                                .call(
+                                                              name:
+                                                                  userRateNamesListItem
+                                                                      .name,
+                                                              apiGlobalKey:
+                                                                  FFAppState()
+                                                                      .apiKey,
+                                                            ),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              // Customize what your widget looks like when it's loading.
+                                                              if (!snapshot
+                                                                  .hasData) {
+                                                                return Center(
+                                                                  child:
+                                                                      SizedBox(
+                                                                    width: 35.0,
+                                                                    height:
+                                                                        35.0,
+                                                                    child:
+                                                                        SpinKitThreeBounce(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                      size:
+                                                                          35.0,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                              final rateCardGetUserRateDetailsResponse =
+                                                                  snapshot
+                                                                      .data!;
+                                                              return wrapWithModel(
+                                                                model: _model
+                                                                    .rateCardModels
+                                                                    .getModel(
+                                                                  userRateNamesListItem
+                                                                      .name,
+                                                                  userRateNamesListIndex,
+                                                                ),
+                                                                updateCallback:
+                                                                    () => setState(
+                                                                        () {}),
+                                                                child:
+                                                                    RateCardWidget(
+                                                                  key: Key(
+                                                                    'Keyxtb_${userRateNamesListItem.name}',
+                                                                  ),
+                                                                  userRate: UserRateStruct
+                                                                      .fromMap(
+                                                                          getJsonField(
+                                                                    rateCardGetUserRateDetailsResponse
+                                                                        .jsonBody,
+                                                                    r'''$.data''',
+                                                                  )),
+                                                                  indexInList:
+                                                                      userRateNamesListIndex,
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 16.0, 32.0, 30.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Expanded(
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context.pushNamed(
+                                                        'RateSignUp',
+                                                        queryParameters: {
+                                                          'name':
+                                                              serializeParam(
+                                                            '',
+                                                            ParamType.String,
+                                                          ),
+                                                        }.withoutNulls,
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      width: 100.0,
+                                                      height: 104.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0x00FFFFFF),
+                                                        image: DecorationImage(
+                                                          fit: BoxFit.fill,
+                                                          image: Image.asset(
+                                                            'assets/images/Rectangle_3047.png',
+                                                          ).image,
+                                                        ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Container(
+                                                            width: 164.0,
+                                                            height: 36.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0x00FFFFFF),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          1.0),
+                                                              border:
+                                                                  Border.all(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  '+ Add another rate',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Lato',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            phone: false,
+                                            tablet: false,
+                                            tabletLandscape: false,
+                                          ))
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      27.0, 0.0, 27.0, 0.0),
+                                              child: wrapWithModel(
+                                                model: _model.adCardWebModel,
+                                                updateCallback: () =>
+                                                    setState(() {}),
+                                                child: AdCardWebWidget(),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      if (widget.isEdit &&
+                                          responsiveVisibility(
+                                            context: context,
+                                            desktop: false,
+                                          ))
+                                        Container(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1.0,
+                                          height: 60.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 5.0,
+                                                color: Color(0x33000000),
+                                                offset: Offset(5.0, 5.0),
+                                                spreadRadius: 10.0,
+                                              )
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 0.0, 32.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'I\'ll do it later',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFF8A8A8A),
+                                                        fontSize: 14.0,
+                                                      ),
+                                                ),
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                        'Profiledetails');
+                                                  },
+                                                  child: Container(
+                                                    width: 104.0,
+                                                    height: 36.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              1.0),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Save',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 14.0,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      if (!widget.isEdit &&
+                                          responsiveVisibility(
+                                            context: context,
+                                            desktop: false,
+                                          ))
+                                        wrapWithModel(
+                                          model: _model.navBarModel,
+                                          updateCallback: () => setState(() {}),
+                                          child: NavBarWidget(),
+                                        ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (responsiveVisibility(
+                      context: context,
+                      phone: false,
+                      tablet: false,
+                      tabletLandscape: false,
+                    ))
+                      SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            wrapWithModel(
+                              model: _model.sideBarRightModel,
+                              updateCallback: () => setState(() {}),
+                              child: SideBarRightWidget(),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  if (!widget.isEdit)
-                    wrapWithModel(
-                      model: _model.navBarModel,
-                      updateCallback: () => setState(() {}),
-                      child: NavBarWidget(),
-                    ),
-                ],
+                  ],
+                ),
               ),
+              if (responsiveVisibility(
+                context: context,
+                phone: false,
+                tablet: false,
+                tabletLandscape: false,
+              ))
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [],
+                ),
             ],
           ),
         ),

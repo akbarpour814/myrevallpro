@@ -1648,3 +1648,18 @@ int? age(DateTime? dateOfBirth) {
   }
   return age;
 }
+
+String? createVCardString(
+  String name,
+  String phone,
+  String email,
+) {
+  return '''
+  BEGIN:VCARD
+  VERSION:3.0
+  FN:$name
+  TEL;TYPE=WORK,VOICE:$phone
+  EMAIL;TYPE=PREF,INTERNET:$email
+  END:VCARD
+  ''';
+}

@@ -33,6 +33,7 @@ class _SkillOptionWidgetState extends State<SkillOptionWidget> {
     _model.expandableController = ExpandableController(initialExpanded: true);
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

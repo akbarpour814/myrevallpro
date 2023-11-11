@@ -33,6 +33,7 @@ class _EditNumberWidgetState extends State<EditNumberWidget> {
     _model.textController ??=
         TextEditingController(text: FFAppState().UserInformation.mobilenumber);
     _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

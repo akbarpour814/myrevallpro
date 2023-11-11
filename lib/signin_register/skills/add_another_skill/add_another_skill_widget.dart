@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'add_another_skill_model.dart';
 export 'add_another_skill_model.dart';
 
@@ -60,7 +61,8 @@ class _AddAnotherSkillWidgetState extends State<AddAnotherSkillWidget> {
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: Container(
               width: 100.0,
@@ -74,7 +76,7 @@ class _AddAnotherSkillWidgetState extends State<AddAnotherSkillWidget> {
                 child: DrawerContentWidget(),
               ),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,

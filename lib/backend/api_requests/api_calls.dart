@@ -229,6 +229,7 @@ class TaskerpageBackendGroup {
   static ProcessActionCall processActionCall = ProcessActionCall();
   static UpdateCustomerProfileBadgesCall updateCustomerProfileBadgesCall =
       UpdateCustomerProfileBadgesCall();
+  static UpdateAvatarCall updateAvatarCall = UpdateAvatarCall();
 }
 
 class RegisterCall {
@@ -2679,6 +2680,11 @@ class UserProfileReadCall {
   dynamic customerSkills(dynamic response) => getJsonField(
         response,
         r'''$.data.customer_skills''',
+        true,
+      );
+  dynamic badges(dynamic response) => getJsonField(
+        response,
+        r'''$.data.badges''',
         true,
       );
 }
@@ -7713,6 +7719,35 @@ class UpdateCustomerProfileBadgesCall {
         response,
         r'''$.message.doctype''',
       );
+}
+
+class UpdateAvatarCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? avatar = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    final ffApiRequestBody = '''
+{
+"avatar":"${avatar}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'update avatar',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
 }
 
 /// End Taskerpage Backend Group Code
