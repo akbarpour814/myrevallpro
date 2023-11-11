@@ -9,17 +9,15 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'dart:html' as html;
-
 Future downloadVCard(
   String vCardString,
   String fileName,
 ) async {
   // Add your function code here!
-  final blob = html.Blob([vCardString], 'text/vcard');
-  final url = html.Url.createObjectUrlFromBlob(blob);
-  final anchor = html.AnchorElement(href: url)
-    ..setAttribute("download", fileName)
-    ..click();
-  html.Url.revokeObjectUrl(url);
+  // final blob = html.Blob([vCardString], 'text/vcard');
+  // final url = html.Url.createObjectUrlFromBlob(blob);
+  // final anchor = html.AnchorElement(href: url)
+  //   ..setAttribute("download", fileName)
+  //   ..click();
+  // html.Url.revokeObjectUrl(url);
 }
