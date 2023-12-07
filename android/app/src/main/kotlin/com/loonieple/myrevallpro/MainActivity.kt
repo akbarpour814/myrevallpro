@@ -1,4 +1,4 @@
-package com.loonieple.myrevallpro
+package com.loonieple.loonieple
 
 import io.flutter.embedding.android.FlutterActivity
 
