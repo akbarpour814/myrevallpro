@@ -1,7 +1,6 @@
 //------/dart and flutter packages
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_icons/flutter_app_icons.dart';
 
 //------/packages
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -66,7 +65,6 @@ SharedValue<bool> demoOfBookIsPlaying = SharedValue(value: false);
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  FlutterAppIcons().setIcon(icon: 'assets/images/appLogoForOutApp.png');
 
   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
     audioPlayerHandler = await AudioService.init(
