@@ -641,10 +641,10 @@ packages:
     dependency: "direct main"
     description:
       name: shared_value
-      sha256: bc195b1f7620403f870b5d5be969c2c90f235b077b7d54ea1499901d3200431f
+      sha256: "264a7de41096e10f5e471f92948d0b648217ecc86549cd3096319541cfd2b515"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.3"
+    version: "3.0.0"
   sizer:
     dependency: "direct main"
     description:

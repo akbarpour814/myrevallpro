@@ -65,16 +65,18 @@ SharedValue<bool> demoOfBookIsPlaying = SharedValue(value: false);
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-
   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    audioPlayerHandler = await AudioService.init(
-      builder: () => AudioPlayerHandlerImplements(),
-      config: const AudioServiceConfig(
-        androidNotificationChannelId: 'com.loonieple.loonieple',
-        androidNotificationChannelName: 'Kaz Reader',
-        androidNotificationOngoing: true,
-      ),
-    );
+    try {
+      audioPlayerHandler = await AudioService.init(
+        builder: () => AudioPlayerHandlerImplements(),
+        config: const AudioServiceConfig(
+          androidNotificationChannelId: 'com.loonieple.loonieple',
+          androidNotificationChannelName: 'Kaz Reader',
+          androidNotificationOngoing: true,
+        ),
+      );
+    } catch (e) {
+    }
   });
 
   runApp(
@@ -134,7 +136,7 @@ class MyApp extends StatelessWidget {
       primarySwatch: generateMaterialColor(color: _primaryColor),
       primaryColor: _primaryColor,
       scaffoldBackgroundColor: Colors.white,
-      useMaterial3: false,
+      useMaterial3: true,
       dividerColor: _primaryColor,
       appBarTheme: const AppBarTheme(
         toolbarHeight: 56.0,
@@ -158,7 +160,7 @@ class MyApp extends StatelessWidget {
       fontFamily: fontFamily,
       primarySwatch: generateMaterialColor(color: _primaryColor),
       primaryColor: _primaryColor,
-      useMaterial3: false,
+      useMaterial3: true,
       scaffoldBackgroundColor: const Color(0xFF171E26),
       dividerColor: _primaryColor,
       appBarTheme: AppBarTheme(
