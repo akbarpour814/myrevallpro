@@ -1,7 +1,6 @@
 //------/dart and flutter packages
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-
 //------/packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sizer/sizer.dart';
@@ -64,20 +63,14 @@ SharedValue<bool> demoOfBookIsPlaying = SharedValue(value: false);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    try {
-      audioPlayerHandler = await AudioService.init(
-        builder: () => AudioPlayerHandlerImplements(),
-        config: const AudioServiceConfig(
-          androidNotificationChannelId: 'com.loonieple.loonieple',
-          androidNotificationChannelName: 'Kaz Reader',
-          androidNotificationOngoing: true,
-        ),
-      );
-    } catch (e) {
-    }
-  });
+  audioPlayerHandler = await AudioService.init(
+    builder: () => AudioPlayerHandlerImplements(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.loonieple.loonieple',
+      androidNotificationChannelName: 'Kaz Reader',
+      androidNotificationOngoing: true,
+    ),
+  );
 
   runApp(
     SharedValue.wrapApp(
@@ -136,7 +129,7 @@ class MyApp extends StatelessWidget {
       primarySwatch: generateMaterialColor(color: _primaryColor),
       primaryColor: _primaryColor,
       scaffoldBackgroundColor: Colors.white,
-      useMaterial3: true,
+      useMaterial3: false,
       dividerColor: _primaryColor,
       appBarTheme: const AppBarTheme(
         toolbarHeight: 56.0,
@@ -160,7 +153,7 @@ class MyApp extends StatelessWidget {
       fontFamily: fontFamily,
       primarySwatch: generateMaterialColor(color: _primaryColor),
       primaryColor: _primaryColor,
-      useMaterial3: true,
+      useMaterial3: false,
       scaffoldBackgroundColor: const Color(0xFF171E26),
       dividerColor: _primaryColor,
       appBarTheme: AppBarTheme(

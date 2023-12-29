@@ -24,7 +24,6 @@ import '/model/book_introduction.dart';
 //------/view/view_models
 import '/view/view_models/custom_circular_progress_indicator.dart';
 import '/view/view_models/no_internet_connection.dart';
-import '/view/view_models/epub_reader_page.dart';
 
 //------/main
 import '/main.dart';

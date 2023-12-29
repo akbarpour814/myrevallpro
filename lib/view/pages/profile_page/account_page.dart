@@ -31,8 +31,6 @@ class _AccountPageState extends State<AccountPage>
     with InternetConnection, LoadDataFromAPI {
   late TextEditingController _firstAndLastNameController;
   String? _firstAndLastNameError;
-  late TextEditingController _emailController;
-  String? _emailError;
   late TextEditingController _phoneNumberController;
   String? _phoneNumberError;
   late bool _permissionToEdit;
@@ -58,7 +56,6 @@ class _AccountPageState extends State<AccountPage>
       setState(() {
         _firstAndLastNameController =
             TextEditingController(text: customDio.data['name']);
-        _emailController = TextEditingController(text: customDio.data['email']);
         _phoneNumberController =
             TextEditingController(text: customDio.data['username']);
 

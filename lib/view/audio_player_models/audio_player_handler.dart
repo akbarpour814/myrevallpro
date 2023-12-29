@@ -1,6 +1,7 @@
 //------/packages
+import 'dart:developer';
+
 import 'package:audio_service/audio_service.dart';
-import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:rxdart/rxdart.dart';
@@ -122,51 +123,55 @@ class AudioPlayerHandlerImplements extends BaseAudioHandler
   }
 
   Future<void> _init() async {
-    final session = await AudioSession.instance;
-    await session.configure(const AudioSessionConfiguration.speech());
-    // Broadcast speed changes. Debounce so that we don't flood the notification
-    // with updates.
-    speed.debounceTime(const Duration(milliseconds: 250)).listen((speed) {
-      playbackState.add(playbackState.value.copyWith(speed: speed));
-    });
-    // Load and broadcast the initial queue
-    await updateQueue(mediaItems.values.toList()[0]);
-    // For Android 11, record the most recent item so it can be resumed.
-    mediaItem
-        .whereType<MediaItem>()
-        .listen((item) => _recentSubject.add([item]));
-    // Broadcast media item changes.
-    Rx.combineLatest4<int?, List<MediaItem>, bool, List<int>?, MediaItem?>(
-        _audioPlayer.currentIndexStream,
-        queue,
-        _audioPlayer.shuffleModeEnabledStream,
-        _audioPlayer.shuffleIndicesStream,
-        (index, queue, shuffleModeEnabled, shuffleIndices) {
-      final queueIndex =
-          getQueueIndex(index, shuffleModeEnabled, shuffleIndices);
-      return (queueIndex != null && queueIndex < queue.length)
-          ? queue[queueIndex]
-          : null;
-    }).whereType<MediaItem>().distinct().listen(mediaItem.add);
-    // Propagate all events from the audio player to AudioService clients.
-    _audioPlayer.playbackEventStream.listen(_broadcastState);
-    _audioPlayer.shuffleModeEnabledStream
-        .listen((enabled) => _broadcastState(_audioPlayer.playbackEvent));
-    // In this example, the service stops when reaching the end.
-    _audioPlayer.processingStateStream.listen((state) {
-      if (state == ProcessingState.completed) {
-        stop();
-        _audioPlayer.seek(Duration.zero, index: 0);
-      }
-    });
-    // Broadcast the current queue.
-    _effectiveSequence
-        .map((sequence) =>
-            sequence.map((source) => _mediaItemExpando[source]!).toList())
-        .pipe(queue);
-    // Load the playlist.
-    _playlist.addAll(queue.value.map(_itemToSource).toList());
-    await _audioPlayer.setAudioSource(_playlist);
+    try {
+      final session = await AudioSession.instance;
+      await session.configure(const AudioSessionConfiguration.speech());
+      // Broadcast speed changes. Debounce so that we don't flood the notification
+      // with updates.
+      speed.debounceTime(const Duration(milliseconds: 250)).listen((speed) {
+        playbackState.add(playbackState.value.copyWith(speed: speed));
+      });
+      // Load and broadcast the initial queue
+      await updateQueue(mediaItems.values.toList()[0]);
+      // For Android 11, record the most recent item so it can be resumed.
+      mediaItem
+          .whereType<MediaItem>()
+          .listen((item) => _recentSubject.add([item]));
+      // Broadcast media item changes.
+      Rx.combineLatest4<int?, List<MediaItem>, bool, List<int>?, MediaItem?>(
+          _audioPlayer.currentIndexStream,
+          queue,
+          _audioPlayer.shuffleModeEnabledStream,
+          _audioPlayer.shuffleIndicesStream,
+          (index, queue, shuffleModeEnabled, shuffleIndices) {
+        final queueIndex =
+            getQueueIndex(index, shuffleModeEnabled, shuffleIndices);
+        return (queueIndex != null && queueIndex < queue.length)
+            ? queue[queueIndex]
+            : null;
+      }).whereType<MediaItem>().distinct().listen(mediaItem.add);
+      // Propagate all events from the audio player to AudioService clients.
+      _audioPlayer.playbackEventStream.listen(_broadcastState);
+      _audioPlayer.shuffleModeEnabledStream
+          .listen((enabled) => _broadcastState(_audioPlayer.playbackEvent));
+      // In this example, the service stops when reaching the end.
+      _audioPlayer.processingStateStream.listen((state) {
+        if (state == ProcessingState.completed) {
+          stop();
+          _audioPlayer.seek(Duration.zero, index: 0);
+        }
+      });
+      // Broadcast the current queue.
+      _effectiveSequence
+          .map((sequence) =>
+              sequence.map((source) => _mediaItemExpando[source]!).toList())
+          .pipe(queue);
+      // Load the playlist.
+      _playlist.addAll(queue.value.map(_itemToSource).toList());
+      await _audioPlayer.setAudioSource(_playlist);
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   AudioSource _itemToSource(MediaItem mediaItem) {

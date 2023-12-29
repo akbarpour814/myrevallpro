@@ -1,9 +1,8 @@
 //------/dart and flutter packages
 import 'package:flutter/material.dart';
 
-//------/packages
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 //------/view/pages/category_page
 import '/view/pages/category_page/category_page.dart';
