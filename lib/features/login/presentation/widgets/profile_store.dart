@@ -1,4 +1,6 @@
+import 'package:animations/animations.dart';
 import 'package:customer_club/core/models/shop_details_model/shop_detail_model.dart';
+import 'package:customer_club/core/models/shop_model.dart';
 import 'package:customer_club/core/utils/extentions.dart';
 import 'package:customer_club/core/utils/my_icons.dart';
 import 'package:customer_club/core/utils/my_navigator.dart';
@@ -26,62 +28,72 @@ class ProfileStore extends StatelessWidget {
         Text('فروشگاه شما'),
         8.hsb(),
         Container(
-          height: 80,
-          margin: EdgeInsets.only(bottom: 40),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.grey.shade200),
-          child: Row(
-            children: [
-              Container(
-                height: 80,
-                width: 80,
-                decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.horizontal(right: Radius.circular(8)),
-                    image: DecorationImage(
-                        image: NetworkImage(shop.shopImg ?? ''))),
-              ),
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            height: 80,
+            margin: EdgeInsets.only(bottom: 40),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey.shade200),
+            child: OpenContainerWrapper(
+                item: ShopModel(id: shop.id, shopBg: shop.shopBg),
+                onClosed: (_) {},
+                transitionType: ContainerTransitionType.fadeThrough,
+                closedBuilder: (BuildContext _, VoidCallback openContainer) {
+                  return InkWellOverlay(
+                    openContainer: openContainer,
+                    child: Row(
                       children: [
-                        Text(
-                          shop.name ?? '',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 12),
+                        Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.horizontal(
+                                  right: Radius.circular(8)),
+                              image: DecorationImage(
+                                  image: NetworkImage(shop.shopImg ?? ''))),
                         ),
-                        if (canScanQr)
-                          MyIconButton(
-                              onTap: () => MyNavigator.push(
-                                  context, ScanUserCardScreen(onScan: onScan)),
-                              child: SvgPicture.string(
-                                MyIcons.scanBlack,
-                                width: 20,
-                              ))
+                        Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    shop.name ?? '',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
+                                  if (canScanQr)
+                                    MyIconButton(
+                                        onTap: () => MyNavigator.push(context,
+                                            ScanUserCardScreen(onScan: onScan)),
+                                        child: SvgPicture.string(
+                                          MyIcons.scanBlack,
+                                          width: 20,
+                                        ))
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  StarWidget(
+                                    star: (shop.rating ?? 0),
+                                    secondColor: true,
+                                    size: 20,
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ))
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        StarWidget(
-                          star: (shop.rating ?? 0),
-                          secondColor: true,
-                          size: 20,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ))
-            ],
-          ),
-        ),
+                  );
+                })),
       ],
     );
   }

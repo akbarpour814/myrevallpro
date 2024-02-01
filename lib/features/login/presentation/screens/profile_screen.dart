@@ -567,7 +567,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             textAlign: TextAlign.justify,
                             style: TextStyle(height: 2),
                           ),
-                          if (appConfig.websitePathAddress.isNotNullOrEmpty)
+                          if (appConfig.website.isNotNullOrEmpty)
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -575,12 +575,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   onTap: () {
                                     launchUrl(
                                         Uri.parse(
-                                            appConfig.websitePathAddress ?? ''),
+                                            appConfig.website ?? ''),
                                         mode: LaunchMode.externalApplication,
                                         webOnlyWindowName: '_self');
                                   },
                                   child: Text(
-                                    appConfig.websitePathAddress!,
+                                    appConfig.website!,
                                     style: TextStyle(
                                         height: 2,
                                         decoration: TextDecoration.underline,

@@ -1,20 +1,15 @@
 import 'dart:io';
-import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/configs/di.dart';
 import 'package:customer_club/configs/theme.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_home_data/get_home_data_bloc.dart';
 import 'package:customer_club/features/login/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
   HttpOverrides.global = MyHttpOverrides();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  statusBarColor: ColorPalette.primaryColor
-));
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(

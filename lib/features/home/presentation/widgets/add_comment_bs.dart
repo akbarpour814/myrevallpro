@@ -78,6 +78,7 @@ class _AddCommentBottomSheetState extends State<AddCommentBottomSheet> {
                           border: Border.all(color: Colors.grey.shade300)),
                       padding: EdgeInsets.fromLTRB(8, 4, 8, 8),
                       child: Row(
+                        textDirection: TextDirection.ltr,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: List.generate(
                             5,

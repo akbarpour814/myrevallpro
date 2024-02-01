@@ -65,7 +65,8 @@ class OpenContainerWrapper extends StatelessWidget {
     required this.transitionType,
     required this.onClosed,
     required this.item,
-    this.goSurveyTab = false, this.onCommentAdd,
+    this.goSurveyTab = false,
+    this.onCommentAdd,
   });
 
   final CloseContainerBuilder closedBuilder;
@@ -78,6 +79,11 @@ class OpenContainerWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return OpenContainer<bool>(
       transitionType: transitionType,
+      openElevation: 0,
+      closedElevation: 0,
+      openColor: Colors.grey.shade200,
+      closedColor: Colors.grey.shade200,
+      middleColor: Colors.grey.shade200,
       openBuilder: (BuildContext context, VoidCallback _) {
         return ShopDetailsScreen(
           shopId: item.id ?? 0,

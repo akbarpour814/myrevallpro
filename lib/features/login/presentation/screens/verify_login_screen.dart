@@ -56,7 +56,7 @@ class _VerifyLoginScreenState extends State<VerifyLoginScreen> {
         child: BlocConsumer<VerifyLoginBloc, VerifyLoginState>(
           listener: (context, state) {
             if (state is VerifyLoginSuccess) {
-              CustomModal.showSuccess(context, 'خوش آمدید');
+              // CustomModal.showSuccess(context, 'خوش آمدید');
               tokenNotifire.value = state.token;
               Navigator.pop(context);
             }

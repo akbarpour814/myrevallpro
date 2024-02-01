@@ -17,6 +17,7 @@ class AppConfigModel {
   String? appFownloadIos;
   String? appDownloadAndroid;
   String? appAbout;
+  String? website;
 
   AppConfigModel(
       {this.websitePathAddress,
@@ -35,6 +36,7 @@ class AppConfigModel {
       this.appBuyCardRequestLink,
       this.appBGCard,
       this.appAbout,
+      this.website,
       this.appDownloadAndroid,
       this.appFownloadIos});
 
@@ -47,6 +49,7 @@ class AppConfigModel {
       appEmailContact: json['app_email_contact'] as String?,
       appFavicon: json['app_favicon'] as String?,
       appLogo: json['app_logo'] as String?,
+      website: json['website'] as String?,
       appVersionCompile: json['app_version_compile'] as String?,
       appFontContent: json['app_font_content'] as String?,
       appFontSizeTitle: json['app_font_size_title'] as String?,

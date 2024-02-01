@@ -34,8 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
+    if (Platform.isAndroid)
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+          overlays: SystemUiOverlay.values);
     super.dispose();
   }
 
@@ -43,9 +44,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // getIt<FlutterSecureStorage>().deleteAll();
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
+    if (Platform.isAndroid)
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+      ));
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       PackageInfo.fromPlatform().then((value) {
         setState(() {
@@ -219,12 +221,13 @@ class _SplashScreenState extends State<SplashScreen> {
                         ),
                         6.h(context).hsb(),
                         SizedBox(
-                            width: 200,
+                            width: 65.w(context),
                             child: Text(
-                              'جستجو در بیش از 1000 فروشگاه تخفیفی در شهر شما'
+                              'معرفی فروشگاه های تخفیف دهنده اپلیکیشن آریا کارت'
                                   .toPersianDigit(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 16, height: 2),
                             ))
                       ],
                     ),
@@ -235,10 +238,15 @@ class _SplashScreenState extends State<SplashScreen> {
                     withText: false,
                   )),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Text(
-                      'V$_version'.toPersianDigit(),
-                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    padding: EdgeInsets.all(12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'نسخه $_version'.toPersianDigit(),
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                      ],
                     ),
                   )
                 ],
