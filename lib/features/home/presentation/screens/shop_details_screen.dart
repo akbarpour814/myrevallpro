@@ -13,6 +13,7 @@ import 'package:customer_club/features/home/presentation/widgets/shop_details_ga
 import 'package:customer_club/features/home/presentation/widgets/shop_details_info.dart';
 import 'package:customer_club/features/home/presentation/widgets/star_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:flutter_svg/svg.dart';
@@ -49,6 +50,11 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
   @override
   void initState() {
     super.initState();
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+        statusBarColor: ColorPalette.primaryColor,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     _bsController = BottomSheet.createAnimationController(this);
     _bsController?.duration = const Duration(milliseconds: 600);
     _tabController = TabController(length: 4, vsync: this);

@@ -52,7 +52,6 @@ class MainScreenState extends State<MainScreen> {
     super.initState();
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
         statusBarColor: ColorPalette.primaryColor,
-        systemStatusBarContrastEnforced: true,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
