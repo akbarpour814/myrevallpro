@@ -1,9 +1,7 @@
-import 'package:customer_club/configs/color_palette.dart';
 import 'package:customer_club/features/home/presentation/blocs/get_home_data/get_home_data_bloc.dart';
 import 'package:customer_club/features/home/presentation/widgets/grid_shop_item.dart';
 import 'package:customer_club/features/home/presentation/widgets/home_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,16 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-        statusBarColor: ColorPalette.primaryColor,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark);
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
