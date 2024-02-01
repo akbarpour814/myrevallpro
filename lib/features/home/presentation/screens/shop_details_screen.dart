@@ -64,6 +64,10 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor: ColorPalette.primaryColor,
+      ),
       body: SafeArea(
         child: MultiBlocProvider(
           providers: [

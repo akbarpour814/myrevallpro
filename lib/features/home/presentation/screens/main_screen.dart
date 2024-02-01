@@ -12,7 +12,6 @@ import 'package:customer_club/features/home/presentation/widgets/bottom_menu_ite
 import 'package:customer_club/features/login/presentation/screens/login_intro_screen.dart';
 import 'package:customer_club/features/login/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainScreen extends StatefulWidget {
@@ -48,17 +47,6 @@ class MainScreenState extends State<MainScreen> {
   };
 
   @override
-  void initState() {
-    super.initState();
-    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-        statusBarColor: ColorPalette.primaryColor,
-        systemStatusBarContrastEnforced: true,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark);
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: _history.isEmpty &&
@@ -80,6 +68,10 @@ class MainScreenState extends State<MainScreen> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           key: MainScreen.scaffoldKey,
+          appBar: AppBar(
+            toolbarHeight: 0,
+            backgroundColor: ColorPalette.primaryColor,
+          ),
           body: Stack(
             children: [
               SizedBox(

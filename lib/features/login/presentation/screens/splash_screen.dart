@@ -34,9 +34,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
-    if (Platform.isAndroid)
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-          overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
     super.dispose();
   }
 
@@ -44,10 +43,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // getIt<FlutterSecureStorage>().deleteAll();
-    if (Platform.isAndroid)
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-      ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       PackageInfo.fromPlatform().then((value) {
         setState(() {
