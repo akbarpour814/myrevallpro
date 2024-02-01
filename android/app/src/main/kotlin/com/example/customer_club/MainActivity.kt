@@ -1,4 +1,4 @@
-package com.app.ariacard
+package com.loonieple.loonieple
 
 import io.flutter.embedding.android.FlutterActivity
 
